@@ -1,5 +1,4 @@
-init:
-	down-clear pull build up
+init: down-clear pull build up
 
 up:
 	docker-compose up -d
@@ -10,8 +9,7 @@ down:
 down-clear:
 	docker-compose down -v --remove-orphans
 
-restart:
-	down up
+restart: down up
 
 pull:
 	docker-compose pull
