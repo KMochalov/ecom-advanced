@@ -20,7 +20,7 @@ docker-build:
 build: build-gateway build-frontend build-api
 
 build-gateway:
-	docker --log-level=debug build --pull --file=gateway/docker/prod/nginx/Dockerfile --tag=${REGISTRY}/ecom-gateway:${IMAGE_TAG} gateway/docker/prod/nginx
+	docker --log-level=debug build --pull --file=gateway/docker/prod/nginx/Dockerfile --tag=${REGISTRY}/ecom-gateway:${IMAGE_TAG} gateway/docker
 
 build-frontend:
 	docker --log-level=debug build --pull --file=frontend/docker/prod/nginx/Dockerfile --tag=${REGISTRY}/ecom-frontend:${IMAGE_TAG} frontend

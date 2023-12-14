@@ -2,7 +2,8 @@ version: "3.7"
 services:
   gateway:
     build:
-      context: ./gateway/docker/develop/nginx
+      context: gateway/docker
+      dockerfile: develop/nginx/Dockerfile
     ports:
       - "8190:8190"
       - "8191:8191"
@@ -12,12 +13,14 @@ services:
 
   frontend:
     build:
-        context: ./frontend/docker/develop/nginx
+      context: frontend/docker
+      dockerfile: develop/nginx/Dockerfile
     volumes:
       - ./frontend:/app
   api:
     build:
-      context: ./api/docker/develop/nginx
+      context: api/docker
+      dockerfile: develop/nginx/Dockerfile
     volumes:
       - ./api:/app
     depends_on:
@@ -25,7 +28,8 @@ services:
 
   api-php-fpm:
     build:
-      context: ./api/docker/develop/php-fpm
+      context: api/docker
+      dockerfile: develop/php-fpm/Dockerfile
     volumes:
       - ./api:/app
 
