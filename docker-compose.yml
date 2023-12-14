@@ -4,8 +4,8 @@ services:
     build:
       context: ./gateway/docker/develop/nginx
     ports:
-      - "8090:8090"
-      - "8091:8091"
+      - "8190:8190"
+      - "8191:8191"
     depends_on:
       - frontend
       - api
