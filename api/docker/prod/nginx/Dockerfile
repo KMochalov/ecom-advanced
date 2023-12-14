@@ -1,6 +1,6 @@
 FROM nginx:alpine
 
-COPY ./docker/production/nginx/conf.d /etc/nginx/conf.d
+COPY ./docker/prod/nginx/conf.d /etc/nginx/conf.d
 
 WORKDIR /app
 
