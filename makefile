@@ -31,3 +31,16 @@ build-api:
 
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
+
+
+push: push-gateway push-frontend push-api
+
+push-gateway:
+	docker push ${REGISTRY}/ecom-gateway:${IMAGE_TAG}
+
+push-frontend:
+	docker push ${REGISTRY}/ecom-frontend:${IMAGE_TAG}
+
+push-api:
+	docker push ${REGISTRY}/ecom-api:${IMAGE_TAG}
+	docker push ${REGISTRY}/ecom-api-php-fpm:${IMAGE_TAG}
