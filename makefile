@@ -1,3 +1,5 @@
+include .env
+
 init: docker-down-clear docker-pull docker-build docker-up
 
 docker-up:
@@ -53,6 +55,7 @@ deploy:
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=ecom" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "REGISTRY=${REGISTRY}" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
+	ssh ${HOST} -p ${PORT} 'docker login ghcr.io -u ${GHUSER} -p ${TOKEN}'
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-prod.yml pull'
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-prod.yml up --build --remove-orphans -d'
 	ssh ${HOST} -p ${PORT} 'rm -f site'
@@ -63,4 +66,3 @@ rollback:
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-prod.yml up --build --remove-orphans -d'
 	ssh ${HOST} -p ${PORT} 'rm -f site'
 	ssh ${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'
-
