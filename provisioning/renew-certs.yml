@@ -1,0 +1,7 @@
+---
+-   name: Обновить сертификаты
+    hosts: all
+    remote_user: root
+    tasks:
+        -   name: Обновить сертификаты
+            shell: "cretbot renew"

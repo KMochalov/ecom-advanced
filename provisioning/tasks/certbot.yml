@@ -1,0 +1,26 @@
+---
+-   name: Обновляем пакеты
+    apt:
+        update_cache: yes
+
+-   name: Устанавливаем certbot
+    apt:
+        name: certbot
+        state: present
+        update_cache: yes
+
+-   name: Скопируем настройки certbot
+    copy:
+        src: files/cli.ini
+        dest: /etc/letsencrypt/cli.ini
+        owner: root
+        group: root
+        mode: 0644
+
+-   name: Удалить мусор
+    apt:
+      autoclean: yes
+
+-   name: Удалить ненужные зависимости
+    apt:
+      autoclean: yes

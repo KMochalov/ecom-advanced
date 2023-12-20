@@ -1,0 +1,24 @@
+---
+-
+  name: Provision site
+  hosts: all
+  remote_user: root
+  vars:
+      certbot_email: alcowebdev@gmail.com
+      certbot_hosts:
+            - pharmagreen.ru
+            - api.pharmagreen.ru
+  tasks:
+      -   import_tasks: tasks/docker.yml
+      -   import_tasks: tasks/certbot.yml
+      -   import_tasks: tasks/generate_certs.yml
+  handlers:
+      -   name: Start docker on boot
+          systemd:
+              name: docker
+              state: started
+              enabled: yes
+
+
+
+

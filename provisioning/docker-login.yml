@@ -1,0 +1,16 @@
+---
+-   name: Логинимся на реестр докера
+    hosts: all
+    remote_user: root
+    var_promt:
+        -   name: registry
+            promt: "Реестр"
+            private: no
+        -   name: username
+            promt: "Юзер"
+            private: no
+        -   name: password
+            promt: "Пароль/токен с гитхаба"
+    tasks:
+        -   name: Логинимся
+            shell: "docker login ghcr.io -u {{ username }} -p {{ password }}"
