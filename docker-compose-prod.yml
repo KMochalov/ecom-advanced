@@ -26,3 +26,5 @@ services:
     image: ${REGISTRY}/ecom-api-php-fpm:${IMAGE_TAG}
     restart: always
 
+  api-php-cli:
+    image: ${REGISTRY}/ecom-api-php-cli:${IMAGE_TAG}

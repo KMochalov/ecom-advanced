@@ -33,4 +33,12 @@ services:
     volumes:
       - ./api:/app
 
+  api-php-cli:
+    build:
+      context: api/docker
+      dockerfile: develop/php-cli/Dockerfile
+    volumes:
+      - ./api:/app
+
+
 

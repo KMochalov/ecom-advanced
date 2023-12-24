@@ -29,6 +29,7 @@ build-frontend:
 
 build-api:
 	docker --log-level=debug build --pull --file=api/docker/prod/php-fpm/Dockerfile --tag=${REGISTRY}/ecom-api-php-fpm:${IMAGE_TAG} api
+	docker --log-level=debug build --pull --file=api/docker/prod/php-cli/Dockerfile --tag=${REGISTRY}/ecom-api-php-cli:${IMAGE_TAG} api
 	docker --log-level=debug build --pull --file=api/docker/prod/nginx/Dockerfile --tag=${REGISTRY}/ecom-api:${IMAGE_TAG} api
 
 try-build:
