@@ -39,27 +39,10 @@
 
 -   name: Добавление Docker репозитория в список источников APT
     block:
-#      - name: Получение кодового имени Ubuntu
-#        command: . /etc/os-release && echo "{{ VERSION_CODENAME }}"
-#        register: ubuntu_codename
-#        changed_when: false
-
-#      - name: Добавление записи репозитория Docker
-#        lineinfile:
-#          path: /etc/apt/sources.list.d/docker.list
-#          line: "deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
-#          create: yes
-
-#      - name: Добавление репозитория Docker
-#        shell: '"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-#  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-#  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
-
+      #arch=amd64 вписано хардкодом, т.к. он криво распознал архитектуру сервера
       - name: Добавление Docker репозитория в APT sources
         shell:
           cmd: echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-
 
       - name: Обновление списка пакетов APT
         apt:
