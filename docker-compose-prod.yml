@@ -25,6 +25,8 @@ services:
   api-php-fpm:
     image: ${REGISTRY}/ecom-api-php-fpm:${IMAGE_TAG}
     restart: always
+    environment:
+      APP_DEBUG: 0
 
   api-php-cli:
     image: ${REGISTRY}/ecom-api-php-cli:${IMAGE_TAG}

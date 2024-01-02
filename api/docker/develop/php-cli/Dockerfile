@@ -6,8 +6,6 @@ RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 
 COPY  ./common/php/conf.d /usr/local/etc/php/conf.d
 
-RUN curl -s https://getcomposer.org/installer | php
-
-RUN mv composer.phar /usr/local/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 WORKDIR /app

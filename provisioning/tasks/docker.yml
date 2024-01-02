@@ -71,9 +71,6 @@
     shell:
       cmd: ln -s /usr/bin/docker /usr/local/bin/docker-compose
 
-
-
-
 #-   name: Изменение разрешений файла
 #    file:
 #        path: /usr/local/bin/docker-compose
