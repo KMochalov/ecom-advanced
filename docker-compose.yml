@@ -33,6 +33,9 @@ services:
     environment:
       APP_ENV: dev
       APP_DEBUG: 1
+      PHP_IDE_CONFIG: serverName=API
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./api:/app
 
@@ -43,8 +46,18 @@ services:
     environment:
       APP_ENV: dev
       APP_DEBUG: 1
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./api:/app
+
+### Это для линукса. Лочим ip чтобы работать с xdebug
+#networks:
+#  default:
+#    ipam:
+#        driver: default
+#        config:
+#          - subnet: 172.22.0.0/16
 
 
 
