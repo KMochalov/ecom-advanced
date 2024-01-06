@@ -26,5 +26,8 @@
         "psr-4": {
             "App\\": "src/"
         }
+    },
+    "scripts": {
+        "console": "php console/app.php --ansi"
     }
 }
