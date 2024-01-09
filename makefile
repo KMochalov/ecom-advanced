@@ -44,6 +44,9 @@ lint-api:
 	docker-compose run --rm api-php-cli composer lint
 	docker-compose run --rm api-php-cli composer cs-check
 
+psalm-api:
+	docker-compose run --rm api-php-cli composer psalm
+
 lint-api-csfix:
 	docker-compose run --rm api-php-cli composer cs-fix
 

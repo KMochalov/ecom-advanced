@@ -7,8 +7,11 @@ $files = array_merge(
 
 $configs = [];
 
+/** @var string $file */
 foreach ($files as $file) {
-    $configs[] = require_once $file;
+    if (is_file($file)) {
+        $configs[] = (array) require_once $file;
+    }
 }
 
 return array_merge_recursive(...$configs);
