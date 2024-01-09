@@ -40,6 +40,12 @@ build-api:
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
 
+lint-api:
+	docker-compose run --rm api-php-cli composer lint
+	docker-compose run --rm api-php-cli composer cs-check
+
+lint-api-csfix:
+	docker-compose run --rm api-php-cli composer cs-fix
 
 push: push-gateway push-frontend push-api
 
@@ -52,7 +58,6 @@ push-frontend:
 push-api:
 	docker push ${REGISTRY}/ecom-api:${IMAGE_TAG}
 	docker push ${REGISTRY}/ecom-api-php-fpm:${IMAGE_TAG}
-
 
 deploy:
 	ssh ${HOST} -p ${PORT} 'rm -rf site_${BUILD_NUMBER}'
