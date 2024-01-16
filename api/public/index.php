@@ -13,8 +13,6 @@ require __DIR__ . '/../vendor/autoload.php';
 /** @var ContainerInterface $container */
 $container = require_once __DIR__ . '/../config/container.php';
 
-$app = AppFactory::createFromContainer($container);
-
 /** @var App $app */
 $app = (require_once __DIR__ . '/../config/app_bootstrap.php')($container);
 

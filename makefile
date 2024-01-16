@@ -62,6 +62,15 @@ push-api:
 	docker push ${REGISTRY}/ecom-api:${IMAGE_TAG}
 	docker push ${REGISTRY}/ecom-api-php-fpm:${IMAGE_TAG}
 
+test-api-unit-coverage:
+	docker-compose run --rm api-php-cli php vendor/bin/phpunit --color --filter=unit --coverage-html var/coverage
+
+test-api-run-unit:
+	docker-compose run --rm api-php-cli php vendor/bin/phpunit --color --filter=unit
+
+test-api-run-all:
+	docker-compose run --rm api-php-cli php vendor/bin/phpunit --color
+
 deploy:
 	ssh ${HOST} -p ${PORT} 'rm -rf site_${BUILD_NUMBER}'
 	ssh ${HOST} -p ${PORT} 'mkdir site_${BUILD_NUMBER}'
