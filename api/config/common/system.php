@@ -2,6 +2,7 @@
 
 return [
     'config' => [
-        'debug' =>  (bool) getenv('APP_DEBUG')
+        'debug' =>  (bool) getenv('APP_DEBUG'),
+        'env' => getenv('APP_ENV') ?: 'prod',
     ],
 ];
