@@ -24,6 +24,8 @@ api-init: api-composer-install
 api-composer-install:
 	docker-compose run --rm api-php-cli composer install
 
+api-checks: lint-api psalm-api
+
 build: build-gateway build-frontend build-api
 
 build-gateway:
