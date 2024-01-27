@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Auth\RegisterByEmail\Request;
+namespace App\Auth\Command\RegisterByEmail\Request;
 
 class Command
 {
