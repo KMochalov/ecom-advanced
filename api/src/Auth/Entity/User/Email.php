@@ -17,10 +17,10 @@ class Email
             throw new DomainException('Некорректный Email');
         };
 
-        $this->email = $email;
+        $this->email = mb_strtolower($email);
     }
 
-    public function getEmail():string
+    public function getValue():string
     {
         return $this->email;
     }

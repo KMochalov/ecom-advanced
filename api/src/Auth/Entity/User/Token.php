@@ -3,6 +3,8 @@
 namespace App\Auth\Entity\User;
 
 use DateTimeImmutable;
+use DomainException;
+use Webmozart\Assert\Assert;
 
 class Token
 {
@@ -10,9 +12,10 @@ class Token
         private string $token,
         private DateTimeImmutable $expireAt)
     {
+        Assert::uuid($this->token);
     }
 
-    public function getToket(): string
+    public function getValue(): string
     {
         return $this->token;
     }
@@ -20,5 +23,18 @@ class Token
     public function expireAt(): DateTimeImmutable
     {
         return $this->expireAt;
+    }
+
+    public function validate(string $token, DateTimeImmutable $date): bool
+    {
+        if ($this->token !== $token) {
+            throw new DomainException('Токены не совпадают');
+        }
+
+        if ($this->expireAt < $date) {
+            throw new DomainException('Срок действия токена истёк.');
+        }
+
+        return true;
     }
 }

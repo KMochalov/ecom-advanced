@@ -2,16 +2,14 @@
 
 namespace App\Auth\Entity\User;
 use Ramsey\Uuid\Uuid;
+use Webmozart\Assert\Assert;
 
 class Id
 {
     private string $id;
     public function __construct(string $id)
     {
-        if (!$id) {
-            throw new \DomainException('Id не может быть пустым');
-        }
-
+        Assert::uuid($id);
         $this->id = mb_strtolower($id);
     }
 
@@ -20,7 +18,7 @@ class Id
         return new self(Uuid::uuid4()->toString());
     }
 
-    public function getId(): string
+    public function getValue(): string
     {
         return $this->id;
     }

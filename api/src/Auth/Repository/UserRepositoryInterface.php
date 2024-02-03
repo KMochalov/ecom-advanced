@@ -9,4 +9,5 @@ interface UserRepositoryInterface
 {
     public function save(User $user): void;
     public function existByEmail(Email $email): bool;
+    public function findByToken(string $token): ?User;
 }

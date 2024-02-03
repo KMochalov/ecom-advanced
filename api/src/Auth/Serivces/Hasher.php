@@ -10,4 +10,9 @@ class Hasher implements HasherInterface
     {
        return password_hash($password, PASSWORD_ARGON2I);
     }
+
+    public function validate(string $password, string $hash): bool
+    {
+        return password_verify($password, $hash);
+    }
 }
