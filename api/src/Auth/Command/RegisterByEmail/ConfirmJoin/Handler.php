@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Auth\Command\ConfirmJoin;
+namespace App\Auth\Command\RegisterByEmail\ConfirmJoin;
 
 use App\Auth\Repository\UserRepositoryInterface;
 use App\Utils\Flusher;

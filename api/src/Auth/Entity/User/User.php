@@ -2,21 +2,76 @@
 
 namespace App\Auth\Entity\User;
 
+use App\Auth\Repository\UserRepository;
+use ArrayObject;
 use DateTimeImmutable;
 use DomainException;
 
 class User
 {
-    private Status $status;
+    private ?Token $token = null;
+    private ?string $passwordHash = null;
+
+
     public function __construct(
-        private  Id $id,
+        private Id $id,
         private Email $email,
         private DateTimeImmutable $createdAt,
-        private string $passwordHash,
-        private ?Token $token,
+        private Status $status,
+        private ArrayObject $networks = new ArrayObject()
     )
     {
-        $this->status = Status::inActive();
+    }
+
+    public static function requestRegisterByEmail(
+         Id $id,
+         Email $email,
+         DateTimeImmutable $createdAt,
+         string $passwordHash,
+         Token $token,
+    ): self
+    {
+        $user = new User(
+            $id,
+            $email,
+            $createdAt,
+            Status::inActive()
+        );
+
+        $user->passwordHash = $passwordHash;
+        $user->token = $token;
+
+        return $user;
+    }
+
+    public function attachNetwork(NetworkIdentity $networkIdentity): void
+    {
+        foreach ($this->networks as $attachedNetwork) {
+            if ($networkIdentity->isEqualTo($attachedNetwork)) {
+                throw new DomainException('Эта соцсеть уже привязана к этому пользователю');
+            }
+        }
+
+        $this->networks->append($networkIdentity);
+    }
+
+    public static function joinByNetwork(
+        Id $id,
+        Email $email,
+        DateTimeImmutable $createdAt,
+        NetworkIdentity $networkIdentity
+    ): self
+    {
+        $user = new User(
+            $id,
+            $email,
+            $createdAt,
+            Status::active()
+        );
+
+        $user->appendNetwork($networkIdentity);
+
+        return $user;
     }
 
     public function getCreatedAt(): DateTimeImmutable
@@ -61,5 +116,15 @@ class User
         $this->token->validate($token, $date);
         $this->status->makeActive();
         $this->token = null;
+    }
+
+    public function appendNetwork(NetworkIdentity $networkIdentity): void
+    {
+        $this->networks->append($networkIdentity);
+    }
+
+    public function getNetworks(): array
+    {
+        return $this->networks->getArrayCopy();
     }
 }

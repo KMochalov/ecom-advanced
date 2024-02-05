@@ -37,7 +37,7 @@ class Handler
 
         $now = new DateTimeImmutable();
 
-        $user = new User(
+        $user = User::requestRegisterByEmail(
             Id::generate(),
             $email,
             $now,

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Auth\Repository;
 
 use App\Auth\Entity\User\Email;
+use App\Auth\Entity\User\Id;
+use App\Auth\Entity\User\NetworkIdentity;
 use App\Auth\Entity\User\User;
 
 class UserRepository implements UserRepositoryInterface
@@ -25,5 +27,15 @@ class UserRepository implements UserRepositoryInterface
     {
         // TODO: Implement findByToken() method.
         return null;
+    }
+
+    public function existByNetwork(NetworkIdentity $networkIdentity): bool
+    {
+        return false;
+    }
+
+    public function get(Id $id): User
+    {
+        // TODO: Implement get() method.
     }
 }
