@@ -27,11 +27,10 @@ class Handler
     {
     }
 
-    public function handler(Command $command): void
+    public function handle(Command $command): void
     {
         $email = new Email($command->email);
 
-        //проверка на уникалность мыла
         if (!$this->repository->existByEmail($email)) {
             throw new DomainException('Такая почта уже используется');
         }
