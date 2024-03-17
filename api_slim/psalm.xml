@@ -10,9 +10,8 @@
 >
     <projectFiles>
         <directory name="config" />
-        <directory name="bin" />
+        <directory name="console" />
         <directory name="src" />
-        <directory name="public" />
         <ignoreFiles>
             <directory name="vendor" />
         </ignoreFiles>
