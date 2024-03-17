@@ -8,11 +8,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @psalm-suppress UnusedClass
+ */
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'test',  format: 'json')]
+    #[Route('/', name: 'test', format: 'json')]
     public function index(): Response
     {
-        return $this->json(['hello', 'privet']);
+        return $this->json(['er' => 'hello', 'e2' => 'privet']);
     }
 }
