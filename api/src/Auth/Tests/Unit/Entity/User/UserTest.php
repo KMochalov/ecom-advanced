@@ -31,7 +31,7 @@ class UserTest extends TestCase
         self::assertEquals($id->getValue(), $user->getId()->getValue());
         self::assertEquals($email->getValue(), $user->getEmail()->getValue());
         self::assertEquals($passwordHash, $user->getPasswordHash());
-        self::assertEquals($token->getValue(), $user->getToken()->getValue());
-        self::assertEquals($token->expireAt(), $user->getToken()->expireAt());
+        self::assertEquals($token->getValue(), $user->getConfirmToken()->getValue());
+        self::assertEquals($token->expireAt(), $user->getConfirmToken()->expireAt());
     }
 }

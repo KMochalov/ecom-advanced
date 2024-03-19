@@ -38,4 +38,9 @@ class UserRepository implements UserRepositoryInterface
     {
         // TODO: Implement get() method.
     }
+
+    public function findByEmail(Email $email): ?User
+    {
+        // TODO: Implement findByEmail() method.
+    }
 }

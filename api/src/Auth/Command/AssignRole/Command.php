@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Auth\Command\Role;
+namespace App\Auth\Command\AssignRole;
 
 class Command
 {

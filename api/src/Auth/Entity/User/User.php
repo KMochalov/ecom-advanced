@@ -2,27 +2,39 @@
 
 namespace App\Auth\Entity\User;
 
-use App\Auth\Repository\UserRepository;
 use ArrayObject;
 use DateTimeImmutable;
 use DomainException;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity]
+#[ORM\Table(name: 'user_users')]
 class User
 {
-    private ?Token $token = null;
+    private ?Token $confirmToken = null;
+    private ?Token $resetToken = null;
     private ?string $passwordHash = null;
     private Role $role;
-
+    private Id $id;
+    private Email $email;
+    private DateTimeImmutable $createdAt;
+    private Status $status;
+    private ArrayObject $networks;
 
     public function __construct(
-        private Id $id,
-        private Email $email,
-        private DateTimeImmutable $createdAt,
-        private Status $status,
-        private ArrayObject $networks = new ArrayObject()
+        Id $id,
+        Email $email,
+        DateTimeImmutable $createdAt,
+        Status $status,
+        ArrayObject $networks = new ArrayObject()
     )
     {
         $this->role = Role::makeUser();
+        $this->id = $id;
+        $this->email = $email;
+        $this->createdAt = $createdAt;
+        $this->status = $status;
+        $this->networks = $networks;
     }
 
     public static function requestRegisterByEmail(
@@ -41,9 +53,14 @@ class User
         );
 
         $user->passwordHash = $passwordHash;
-        $user->token = $token;
+        $user->confirmToken = $token;
 
         return $user;
+    }
+
+    public function requestResetPassword(Token $token): void
+    {
+        $this->resetToken = $token;
     }
 
     public function attachNetwork(NetworkIdentity $networkIdentity): void
@@ -86,9 +103,9 @@ class User
         return $this->passwordHash;
     }
 
-    public function getToken(): Token
+    public function getConfirmToken(): Token
     {
-        return $this->token;
+        return $this->confirmToken;
     }
 
     /**
@@ -111,13 +128,13 @@ class User
 
     public function confirmJoin(string $token, DateTimeImmutable $date): void
     {
-        if ($this->token === null) {
+        if ($this->confirmToken === null) {
             throw new DomainException('Подтверждение не требуется.');
         }
 
-        $this->token->validate($token, $date);
+        $this->confirmToken->validate($token, $date);
         $this->status->makeActive();
-        $this->token = null;
+        $this->confirmToken = null;
     }
 
     public function appendNetwork(NetworkIdentity $networkIdentity): void

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Auth\Command\Role;
+namespace App\Auth\Command\AssignRole;
 
 use App\Auth\Entity\User\Role;
 use App\Auth\Repository\UserRepositoryInterface;
