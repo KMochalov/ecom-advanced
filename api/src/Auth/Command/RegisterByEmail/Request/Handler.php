@@ -22,7 +22,8 @@ class Handler
         private SenderInterface $sender,
         private TokenizerInterface $tokenizer,
         private HasherInterface $hasher,
-        private Flusher $flusher
+        //private Flusher $flusher,
+        private Flusher $flusher,
     )
     {
     }
