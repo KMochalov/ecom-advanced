@@ -11,6 +11,7 @@ class User
 {
     private ?Token $token = null;
     private ?string $passwordHash = null;
+    private Role $role;
 
 
     public function __construct(
@@ -21,6 +22,7 @@ class User
         private ArrayObject $networks = new ArrayObject()
     )
     {
+        $this->role = Role::makeUser();
     }
 
     public static function requestRegisterByEmail(
@@ -126,5 +128,14 @@ class User
     public function getNetworks(): array
     {
         return $this->networks->getArrayCopy();
+    }
+
+    public function changeRole(Role $role): void
+    {
+        if ($this->role->isEqual($role)) {
+            throw new DomainException('Эта роль уже установлена для пользователя');
+        }
+
+        $this->role = $role;
     }
 }
