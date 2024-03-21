@@ -155,4 +155,11 @@ class User
 
         $this->role = $role;
     }
+
+    public function resetPassword(DateTimeImmutable $date, string $hash, string $token): void
+    {
+        $this->resetToken->validate($token, $date);
+        $this->resetToken = null;
+        $this->passwordHash = $hash;
+    }
 }

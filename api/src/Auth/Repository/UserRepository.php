@@ -23,7 +23,7 @@ class UserRepository implements UserRepositoryInterface
         return true;
     }
 
-    public function findByToken(string $token): ?User
+    public function findByConfirmToken(string $token): ?User
     {
         // TODO: Implement findByToken() method.
         return null;
@@ -42,5 +42,10 @@ class UserRepository implements UserRepositoryInterface
     public function findByEmail(Email $email): ?User
     {
         // TODO: Implement findByEmail() method.
+    }
+
+    public function findByResetToken(string $token): ?User
+    {
+        // TODO: Implement findByResetToken() method.
     }
 }

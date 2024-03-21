@@ -18,7 +18,7 @@ class Handler
     public function handler(Command $command): void
     {
         $token = $command->token;
-        $user = $this->repository->findByToken($token);
+        $user = $this->repository->findByConfirmToken($token);
         if ($user === null) {
             throw new DomainException('Пользователь с таким токеном не найден');
         }
