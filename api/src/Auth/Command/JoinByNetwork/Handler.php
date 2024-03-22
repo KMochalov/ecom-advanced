@@ -7,6 +7,7 @@ namespace App\Auth\Command\JoinByNetwork;
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\NetworkIdentity;
+use App\Auth\Entity\User\Status;
 use App\Auth\Entity\User\User;
 use App\Auth\Repository\UserRepositoryInterface;
 use App\Utils\Flusher;
@@ -24,23 +25,31 @@ class Handler
 
     public function handle(Command $command): void
     {
-        $networkIdentity = new NetworkIdentity($command->network, $command->identity);
-        $email = new Email($command->email);
-
-        if (!$this->repository->existByNetwork($networkIdentity)) {
-            throw new DomainException('Эта соцсеть уже привязана для этого пользователя');
+        if (empty($command->email)) {
+            $command->email = $command->identity . '@' . $command->network . 'ru';
         }
+
+        $email = new Email($command->email);
 
         if (!$this->repository->existByEmail($email)) {
             throw new DomainException('Пользователь с таким Email уже есть');
         }
 
-        $user = User::joinByNetwork(
+        $user = new User(
             Id::generate(),
             $email,
             new DateTimeImmutable(),
-            $networkIdentity,
+            Status::active()
         );
+
+        $networkIdentity =  new NetworkIdentity(
+            Id::generate(),
+            $user,
+            $command->network,
+            $command->identity
+        );
+
+        $user->attachNetwork($networkIdentity);
 
         $this->repository->save($user);
 

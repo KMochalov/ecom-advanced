@@ -25,9 +25,14 @@ class Handler
 
     public function handle(Command $command): void
     {
-        $networkIdentity = new NetworkIdentity($command->network, $command->identity);
-
         $user = $this->repository->get(new Id($command->id));
+
+        $networkIdentity = new NetworkIdentity(
+            Id::generate(),
+            $user,
+            $command->network,
+            $command->identity
+        );
 
         $user->attachNetwork($networkIdentity);
 

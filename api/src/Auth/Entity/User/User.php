@@ -83,25 +83,6 @@ class User
         $this->networks->append($networkIdentity);
     }
 
-    public static function joinByNetwork(
-        Id $id,
-        Email $email,
-        DateTimeImmutable $createdAt,
-        NetworkIdentity $networkIdentity
-    ): self
-    {
-        $user = new User(
-            $id,
-            $email,
-            $createdAt,
-            Status::active()
-        );
-
-        $user->appendNetwork($networkIdentity);
-
-        return $user;
-    }
-
     public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
