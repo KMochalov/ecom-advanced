@@ -5,12 +5,17 @@ namespace App\Auth\Entity\User;
 use DateTimeImmutable;
 use DomainException;
 use Webmozart\Assert\Assert;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Embeddable]
 class Token
 {
     public function __construct(
+        #[ORM\Column(type: 'string', nullable: true)]
         private string $token,
-        private DateTimeImmutable $expireAt)
+        #[ORM\Column(type: 'date_immutable', nullable: true)]
+        private DateTimeImmutable $expireAt
+    )
     {
         Assert::uuid($this->token);
     }

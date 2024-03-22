@@ -9,15 +9,24 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user_users')]
+#[ORM\HasLifecycleCallbacks]
 class User
 {
+    #[ORM\Embedded(class: Token::class, columnPrefix: "confirm_")]
     private ?Token $confirmToken = null;
+    #[ORM\Embedded(class: Token::class, columnPrefix: "reset_")]
     private ?Token $resetToken = null;
+    #[ORM\Column(type: 'string', nullable: true, name: 'password_hash')]
     private ?string $passwordHash = null;
+    #[ORM\Embedded(class: Role::class)]
     private Role $role;
+
     private Id $id;
+
     private Email $email;
+    #[ORM\Column(type: 'date_immutable', name: 'created_at')]
     private DateTimeImmutable $createdAt;
+
     private Status $status;
     private ArrayObject $networks;
 
@@ -161,5 +170,17 @@ class User
         $this->resetToken->validate($token, $date);
         $this->resetToken = null;
         $this->passwordHash = $hash;
+    }
+
+    #[ORM\PostLoad]
+    public function postLoad(): void
+    {
+        if(!$this->confirmToken->getValue()) {
+            $this->confirmToken = null;
+        }
+
+        if(!$this->resetToken->getValue()) {
+            $this->resetToken = null;
+        }
     }
 }

@@ -3,9 +3,12 @@
 namespace App\Auth\Entity\User;
 
 use DomainException;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Embeddable]
 class Email
 {
+    #[ORM\Column(type: 'string')]
     private string $email;
     public function __construct(string $email)
     {

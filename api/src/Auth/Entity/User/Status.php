@@ -2,11 +2,15 @@
 
 namespace App\Auth\Entity\User;
 
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Embeddable]
 class Status
 {
     public const ACTIVE = true;
     public const IN_ACTIVE = false;
 
+    #[ORM\Column(type: 'string')]
     private bool $status;
 
     private function __construct(bool $status = self::IN_ACTIVE)
