@@ -8,6 +8,10 @@ doctrine:
 
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
+        types:
+            user_email: 'App\Auth\Entity\User\EmailType'
+            user_role: 'App\Auth\Entity\User\RoleType'
+            user_id: 'App\Auth\Entity\User\IdType'
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true

@@ -5,16 +5,13 @@ declare(strict_types=1);
 namespace App\Auth\Entity\User;
 
 use DomainException;
-use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Embeddable]
 class Role
 {
     public const ROLE_USER = 'user';
     public const ROLE_ADMIN = 'admin';
 
     public function __construct(
-        #[ORM\Column(type: 'string')]
         private readonly string $role
     )
     {

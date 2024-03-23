@@ -7,11 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Embeddable]
 class Status
 {
-    public const ACTIVE = true;
-    public const IN_ACTIVE = false;
+    public const ACTIVE = 'active';
+    public const IN_ACTIVE = 'inactive';
 
     #[ORM\Column(type: 'string')]
-    private bool $status;
+    private string $status;
 
     private function __construct(bool $status = self::IN_ACTIVE)
     {
@@ -28,7 +28,7 @@ class Status
         return new self(self::ACTIVE);
     }
 
-    public function getValue(): bool
+    public function getValue(): string
     {
         return $this->status;
     }

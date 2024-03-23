@@ -6,12 +6,18 @@ namespace App\Auth\Entity\User;
 
 use Webmozart\Assert\Assert;
 use App\Auth\Entity\User\Id;
+use Doctrine\ORM\Mapping as ORM;
 
 class NetworkIdentity
 {
+    #[ORM\Column(type: 'user_id')]
     private Id $id;
+    #[ORM\ManyToOne(targetEntity: 'User', inversedBy: 'networks')]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     private User $user;
+    #[ORM\Column(type: 'string')]
     private string $network;
+    #[ORM\Column(type: 'string')]
     private string $identity;
 
     public function __construct(Id $id, User $user, string $network, string $identity)

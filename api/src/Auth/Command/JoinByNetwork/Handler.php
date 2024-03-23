@@ -49,6 +49,10 @@ class Handler
             $command->identity
         );
 
+        if ($this->repository->existByNetwork($networkIdentity)) {
+            throw new DomainException('Пользователь с такой соцсетью есть');
+        }
+
         $user->attachNetwork($networkIdentity);
 
         $this->repository->save($user);

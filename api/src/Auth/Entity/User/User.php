@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 #[ORM\Table(name: 'user_users')]
 #[ORM\HasLifecycleCallbacks]
+#[ORM\UniqueConstraint(name: "email", columns: ["email"])]
+#[ORM\UniqueConstraint(name: "confirm_token", columns: ["confirm_token"])]
+#[ORM\UniqueConstraint(name: "reset_token", columns: ["reset_token"])]
 class User
 {
     #[ORM\Embedded(class: Token::class, columnPrefix: "confirm_")]
@@ -18,16 +21,18 @@ class User
     private ?Token $resetToken = null;
     #[ORM\Column(type: 'string', nullable: true, name: 'password_hash')]
     private ?string $passwordHash = null;
-    #[ORM\Embedded(class: Role::class)]
+    #[ORM\Column(type: 'user_role')]
     private Role $role;
-
+    #[ORM\Column(type: 'user_id')]
+    #[ORM\Id]
     private Id $id;
-
+    #[ORM\Column(type: 'user_email')]
     private Email $email;
     #[ORM\Column(type: 'date_immutable', name: 'created_at')]
     private DateTimeImmutable $createdAt;
-
+    #[ORM\Embedded(class: Status::class)]
     private Status $status;
+    #[ORM\OneToMany(targetEntity: 'NetworkIdentity', mappedBy: 'user', cascade: ['persist'], orphanRemoval: true)]
     private ArrayObject $networks;
 
     public function __construct(
