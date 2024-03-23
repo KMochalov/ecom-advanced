@@ -8,9 +8,12 @@ use Webmozart\Assert\Assert;
 use App\Auth\Entity\User\Id;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity]
+#[ORM\Table(name: 'user_networks')]
 class NetworkIdentity
 {
     #[ORM\Column(type: 'user_id')]
+    #[ORM\Id]
     private Id $id;
     #[ORM\ManyToOne(targetEntity: 'User', inversedBy: 'networks')]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
