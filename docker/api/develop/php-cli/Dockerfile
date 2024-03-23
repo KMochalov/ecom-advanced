@@ -3,8 +3,8 @@ FROM php:8.2-cli-alpine
 RUN apk update \
     && apk add --update linux-headers \
     && apk add autoconf g++ make \
-    && apk add libzip-dev zip\0
-    && apk add libpq-dev\
+    && apk add libzip-dev zip \
+    && apk add libpq-dev \
     && pecl install xdebug \
     && rm -rf /tmp/pear \
     && docker-php-ext-install zip \
