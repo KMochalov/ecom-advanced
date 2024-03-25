@@ -9,6 +9,7 @@ use App\Auth\Serivces\Tokenizer;
 use PHPUnit\Framework\TestCase;
 use App\Auth\Entity\User\User;
 use DateTimeImmutable;
+use App\Auth\Entity\User\Status;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -16,11 +17,12 @@ use Ramsey\Uuid\Uuid;
  */
 class UserTest extends TestCase
 {
-    public function testSuccess(): void
+    public function testSuccessByEmail(): void
     {
         $hasher = new Hasher();
         $tokinizer = new Tokenizer();
-        $user = new User(
+
+        $user = User::requestRegisterByEmail(
             $id = Id::generate(),
             $email = new Email($emailValue = 'asdasd@mail.ru'),
             $date = new DateTimeImmutable(),

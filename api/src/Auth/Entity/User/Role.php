@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Auth\Entity\User;
 
 use DomainException;
+use Webmozart\Assert\Assert;
 
 class Role
 {
@@ -15,12 +16,7 @@ class Role
         private readonly string $role
     )
     {
-        if (
-            $this->role !== self::ROLE_USER
-            || $this->role !== self::ROLE_ADMIN
-        ) {
-            throw new DomainException("Передана неверная роль");
-        }
+        Assert::oneOf($this->role, [self::ROLE_USER, self::ROLE_ADMIN], "Передана неверная роль");
     }
 
     public function getRole(): string

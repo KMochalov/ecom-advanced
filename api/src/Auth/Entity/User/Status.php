@@ -3,6 +3,7 @@
 namespace App\Auth\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
+use Webmozart\Assert\Assert;
 
 #[ORM\Embeddable]
 class Status
@@ -13,8 +14,12 @@ class Status
     #[ORM\Column(type: 'string')]
     private string $status;
 
-    private function __construct(bool $status = self::IN_ACTIVE)
+    public function __construct(string $status = self::IN_ACTIVE)
     {
+        Assert::oneOf($status, [
+            self::IN_ACTIVE,
+            self::ACTIVE,
+        ]);
         $this->status = $status;
     }
 

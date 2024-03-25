@@ -17,7 +17,7 @@ class StatusTest extends TestCase
         $status = Status::inActive();
 
         $this->assertFalse($status->isActive());
-        $this->assertFalse($status->getValue());
+        $this->assertEquals(Status::IN_ACTIVE, $status->getValue());
     }
 
     public function testActiveStatus(): void
@@ -25,7 +25,7 @@ class StatusTest extends TestCase
         $status = Status::active();
 
         $this->assertTrue($status->isActive());
-        $this->assertTrue($status->getValue());
+        $this->assertEquals(Status::ACTIVE, $status->getValue());
     }
 
     public function testMakeActive(): void
@@ -34,7 +34,7 @@ class StatusTest extends TestCase
         $status->makeActive();
 
         $this->assertTrue($status->isActive());
-        $this->assertTrue($status->getValue());
+        $this->assertEquals(Status::ACTIVE, $status->getValue());
     }
 
     public function testMakeInActive(): void
@@ -43,6 +43,6 @@ class StatusTest extends TestCase
         $status->makeInActive();
 
         $this->assertFalse($status->isActive());
-        $this->assertFalse($status->getValue());
+        $this->assertEquals(Status::IN_ACTIVE, $status->getValue());
     }
 }
