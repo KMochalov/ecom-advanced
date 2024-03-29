@@ -8,44 +8,58 @@ use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\NetworkIdentity;
 use App\Auth\Entity\User\User;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
 class UserRepository implements UserRepositoryInterface
 {
+    private EntityRepository $repository;
 
-    public function save(User $user): void
+    public function __construct(
+      private readonly EntityManagerInterface $entityManager,
+    ) {
+        $this->repository = $this->entityManager->getRepository(User::class);
+    }
+
+    public function add(User $user): void
     {
-        // TODO: Implement save() method.
+        $this->entityManager->persist($user);
     }
 
     public function existByEmail(Email $email): bool
     {
-        // TODO: Implement existByEmail() method.
-        return true;
+        return (bool) $this->repository->findOneBy(['email' => $email->getValue()]);
     }
 
     public function findByConfirmToken(string $token): ?User
     {
-        // TODO: Implement findByToken() method.
-        return null;
+        return $this->repository->findOneBy(['confirmToken.token' => $token]);
     }
 
-    public function existByNetwork(NetworkIdentity $networkIdentity): bool
+    public function existByNetworkIdentity(string $network, string $identity): bool
     {
-        return false;
+        return $this->repository->createQueryBuilder('u')
+                ->select('COUNT(u.id)')
+                ->innerJoin('u.networks', 'n')
+                ->andWhere('n.network = :network and n.identity = :identity')
+                ->setParameter(':network', $network)
+                ->setParameter(':identity', $identity)
+                ->getQuery()
+                ->getSingleScalarResult() > 0;
     }
 
     public function get(Id $id): User
     {
-        // TODO: Implement get() method.
+        return $this->repository->find($id);
     }
 
     public function findByEmail(Email $email): ?User
     {
-        // TODO: Implement findByEmail() method.
+        return $this->repository->findOneBy(['email' => $email->getValue()]);
     }
 
     public function findByResetToken(string $token): ?User
     {
-        // TODO: Implement findByResetToken() method.
+        return $this->repository->findOneBy(['resetToken.token' => $token]);
     }
 }

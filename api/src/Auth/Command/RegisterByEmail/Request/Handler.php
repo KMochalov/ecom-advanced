@@ -46,7 +46,7 @@ class Handler
             $token = $this->tokenizer->tokenize($now)
         );
 
-        $this->repository->save($user);
+        $this->repository->add($user);
         $this->flusher->flush();
         $this->sender->send($email, $token);
     }

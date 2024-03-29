@@ -60,10 +60,8 @@ services:
     ports:
       - "54321:5432"
     volumes:
-      - psql:/var/lib/postgresql/data
+      - ./pgsql:/var/lib/postgresql/data
 
-volumes:
-  psql:
 
 ### Это для линукса. Лочим ip чтобы работать с xdebug
 #networks:

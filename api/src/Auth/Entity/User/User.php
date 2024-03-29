@@ -4,6 +4,8 @@ namespace App\Auth\Entity\User;
 
 use ArrayObject;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use DomainException;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,14 +35,14 @@ class User
     #[ORM\Embedded(class: Status::class)]
     private Status $status;
     #[ORM\OneToMany(targetEntity: 'NetworkIdentity', mappedBy: 'user', cascade: ['persist'], orphanRemoval: true)]
-    private ArrayObject $networks;
+    private Collection $networks;
 
     public function __construct(
         Id $id,
         Email $email,
         DateTimeImmutable $createdAt,
         Status $status,
-        ArrayObject $networks = new ArrayObject()
+        ArrayCollection $networks = new ArrayCollection()
     )
     {
         $this->role = Role::makeUser();
@@ -85,7 +87,7 @@ class User
             }
         }
 
-        $this->networks->append($networkIdentity);
+        $this->networks->add($networkIdentity);
     }
 
     public function getCreatedAt(): DateTimeImmutable
@@ -134,12 +136,12 @@ class User
 
     public function appendNetwork(NetworkIdentity $networkIdentity): void
     {
-        $this->networks->append($networkIdentity);
+        $this->networks->add($networkIdentity);
     }
 
     public function getNetworks(): array
     {
-        return $this->networks->getArrayCopy();
+        return $this->networks->toArray();
     }
 
     public function changeRole(Role $role): void

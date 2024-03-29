@@ -32,7 +32,7 @@ class Handler
             token: $command->token
         );
 
-        $this->repository->save($user);
+        $this->repository->add($user);
         $this->flusher->flush();
     }
 }

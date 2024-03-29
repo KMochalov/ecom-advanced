@@ -10,12 +10,12 @@ use DomainException;
 
 interface UserRepositoryInterface
 {
-    public function save(User $user): void;
+    public function add(User $user): void;
     public function existByEmail(Email $email): bool;
     public function findByEmail(Email $email): ?User;
     public function findByConfirmToken(string $token): ?User;
     public function findByResetToken(string $token): ?User;
-    public function existByNetwork(NetworkIdentity $networkIdentity): bool;
+    public function existByNetworkIdentity(string $network, string $identity): bool;
 
     /**
      * @param Id $id

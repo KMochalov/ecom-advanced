@@ -39,7 +39,7 @@ class Handler
 
         $user->requestResetPassword($token);
 
-        $this->repository->save($user);
+        $this->repository->add($user);
         $this->flusher->flush();
         $this->sender->send($email, $token);
     }
