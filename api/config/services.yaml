@@ -22,3 +22,7 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Auth\Repository\UserRepositoryInterface: '@App\Auth\Repository\UserRepository'
+    App\Auth\Services\HasherInterface: '@App\Auth\Services\Hasher'
+    App\Auth\Services\SenderInterface: '@App\Auth\Services\Sender'
+    App\Auth\Services\TokenizerInterface: '@App\Auth\Services\Tokenizer'

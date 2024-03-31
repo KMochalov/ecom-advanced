@@ -22,7 +22,6 @@ class Handler
         private SenderInterface $sender,
         private TokenizerInterface $tokenizer,
         private HasherInterface $hasher,
-        //private Flusher $flusher,
         private Flusher $flusher,
     )
     {
@@ -32,7 +31,7 @@ class Handler
     {
         $email = new Email($command->email);
 
-        if (!$this->repository->existByEmail($email)) {
+        if ($this->repository->existByEmail($email)) {
             throw new DomainException('Такая почта уже используется');
         }
 

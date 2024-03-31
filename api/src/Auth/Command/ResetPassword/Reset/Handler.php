@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Auth\Command\ResetPassword\Reset;
 
 use App\Auth\Repository\UserRepositoryInterface;
-use App\Auth\Serivces\Hasher;
+use App\Auth\Serivces\HasherInterface;
 use App\Utils\Flusher;
 use DateTimeImmutable;
 use DomainException;
@@ -15,7 +15,7 @@ class Handler
     public function __construct(
         private UserRepositoryInterface $repository,
         private Flusher $flusher,
-        private Hasher $hasher
+        private HasherInterface $hasher
     )
     {
     }
