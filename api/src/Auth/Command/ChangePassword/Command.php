@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Auth\Command\ResetPassword\Reset;
+namespace App\Auth\Command\ChangePassword;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -10,10 +10,12 @@ class Command
 {
     public function __construct(
         #[Assert\NotBlank]
-        public string $token,
+        #[Assert\Uuid]
+        public string $userId,
         #[Assert\NotBlank]
-        #[Assert\Length(min: 5)]
-        public string $password
-    ) {
+        public string $old,
+        #[Assert\NotBlank]
+        public string $new,
+    ){
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Auth\Entity\User;
 
+use App\Auth\Serivces\HasherInterface;
 use ArrayObject;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -170,5 +171,19 @@ class User
         if(!$this->resetToken->getValue()) {
             $this->resetToken = null;
         }
+    }
+
+    public function changePassword(string $old, string $new, HasherInterface $hasher): void
+    {
+        if($this->passwordHash) {
+            throw new DomainException('пароля еще нет');
+        }
+
+        if(!$hasher->validate($old, $this->passwordHash)) {
+            throw new DomainException('Старый пароль введён не верно');
+        }
+
+        $this->passwordHash = $hasher->hash($new);
+
     }
 }
