@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Auth\Command\RegisterByEmail\Request\Command;
-use App\Auth\Command\RegisterByEmail\Request\Handler;
+use App\Auth\Command\ChangeEmail\Request\Command;
+use App\Auth\Command\ChangeEmail\Request\Handler;
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Id;
 use App\Auth\Repository\UserRepository;

@@ -3,6 +3,7 @@
 namespace App\Auth\Entity\User;
 
 use App\Auth\Serivces\HasherInterface;
+use App\Auth\Serivces\TokenizerInterface;
 use ArrayObject;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,6 +23,8 @@ class User
     private ?Token $confirmToken = null;
     #[ORM\Embedded(class: Token::class, columnPrefix: "reset_")]
     private ?Token $resetToken = null;
+    #[ORM\Embedded(class: Token::class, columnPrefix: "change_email_")]
+    private ?Token $changeEmailToken = null;
     #[ORM\Column(type: 'string', nullable: true, name: 'password_hash')]
     private ?string $passwordHash = null;
     #[ORM\Column(type: 'user_role')]
@@ -31,6 +34,8 @@ class User
     private Id $id;
     #[ORM\Column(type: 'user_email')]
     private Email $email;
+    #[ORM\Column(type: 'user_email', nullable: true)]
+    private ?Email $newEmail;
     #[ORM\Column(type: 'date_immutable', name: 'created_at')]
     private DateTimeImmutable $createdAt;
     #[ORM\Embedded(class: Status::class)]
@@ -171,6 +176,10 @@ class User
         if(!$this->resetToken->getValue()) {
             $this->resetToken = null;
         }
+
+        if(!$this->changeEmailToken->getValue()) {
+            $this->changeEmailToken = null;
+        }
     }
 
     public function changePassword(string $old, string $new, HasherInterface $hasher): void
@@ -185,5 +194,35 @@ class User
 
         $this->passwordHash = $hasher->hash($new);
 
+    }
+
+    public function changeEmailRequest(Email $newEmail, DateTimeImmutable $date, Token $token): void
+    {
+        if (!$this->status->isActive()) {
+            throw new DomainException('Пользователь не активен');
+        }
+
+        if ($this->changeEmailToken !== null && !$this->changeEmailToken->expired($date)) {
+            throw new DomainException('Запрос на смену email уже отправлен');
+        }
+
+        if ($this->email->isEqualTo($newEmail)) {
+            throw new DomainException('Нелзя менять на старый Email');
+        }
+
+        $this->newEmail = $newEmail;
+        $this->changeEmailToken = $token;
+    }
+
+    public function confirmChangeEmail(string $token, DateTimeImmutable $date): void
+    {
+        if ($this->changeEmailToken === null || $this->newEmail === null) {
+            throw new DomainException('Запроса на смену email не было');
+        }
+
+        $this->changeEmailToken->validate($token, $date);
+        $this->email = $this->newEmail;
+        $this->newEmail = null;
+        $this->changeEmailToken = null;
     }
 }

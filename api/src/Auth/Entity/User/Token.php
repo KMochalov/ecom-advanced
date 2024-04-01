@@ -42,4 +42,8 @@ class Token
 
         return true;
     }
+
+    public function expired(DateTimeImmutable $date): bool{
+        return $date > $this->expireAt;
+    }
 }

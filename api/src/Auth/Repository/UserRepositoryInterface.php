@@ -14,6 +14,7 @@ interface UserRepositoryInterface
     public function existByEmail(Email $email): bool;
     public function findByEmail(Email $email): ?User;
     public function findByConfirmToken(string $token): ?User;
+    public function findByChangeEmailToken(string $token): ?User;
     public function findByResetToken(string $token): ?User;
     public function existByNetworkIdentity(string $network, string $identity): bool;
 

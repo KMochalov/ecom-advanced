@@ -10,6 +10,7 @@ use App\Auth\Entity\User\NetworkIdentity;
 use App\Auth\Entity\User\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -50,7 +51,12 @@ class UserRepository implements UserRepositoryInterface
 
     public function get(Id $id): User
     {
-        return $this->repository->find($id);
+        $user = $this->repository->find($id);
+        if (!$user) {
+            throw new NotFoundHttpException('Пользователь не найден');
+        }
+
+        return $user;
     }
 
     public function findByEmail(Email $email): ?User
@@ -61,5 +67,10 @@ class UserRepository implements UserRepositoryInterface
     public function findByResetToken(string $token): ?User
     {
         return $this->repository->findOneBy(['resetToken.token' => $token]);
+    }
+
+    public function findByChangeEmailToken(string $token): ?User
+    {
+        return $this->repository->findOneBy(['changeEmailToken.token' => $token]);
     }
 }
