@@ -62,6 +62,11 @@ services:
     volumes:
       - ./pgsql:/var/lib/postgresql/data
 
+  mailer:
+    image: mailhog/mailhog
+    ports:
+      - "8192:8025"
+
 
 ### Это для линукса. Лочим ip чтобы работать с xdebug
 #networks:
