@@ -11,13 +11,20 @@ use Symfony\Component\Mime\Email as SymfonyEmail;
 class Sender implements SenderInterface
 {
 
-    public function __construct(private MailerInterface $mailer, private string $senderEmail)
+    public function __construct(
+        private MailerInterface $mailer,
+        private string $senderEmail,
+        private string $frontendUrl)
     {
     }
 
     public function send(UserEmail $userEmail, Token $token): void
     {
-        $body ='Подтвердите регистрацию на сайте' . '/signup/confirm?' . http_build_query(['token' => $token->getValue()]);
+        $body ='Подтвердите регистрацию на сайте'
+            . $this->frontendUrl
+            . '/signup/confirm?'
+            . http_build_query(['token' => $token->getValue()]);
+
         $email = new SymfonyEmail();
         $email->from($this->senderEmail)
             ->to($userEmail->getValue())
