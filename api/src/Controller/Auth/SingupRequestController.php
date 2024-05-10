@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 
-class SingUpController extends AbstractController
+class SingupRequestController extends AbstractController
 {
     public function __construct(
         private LoggerInterface $logger,

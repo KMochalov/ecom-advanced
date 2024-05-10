@@ -22,7 +22,7 @@ class Sender implements SenderInterface
     {
         $body ='Подтвердите регистрацию на сайте'
             . $this->frontendUrl
-            . '/signup/confirm?'
+            . '/signup-confirm?'
             . http_build_query(['token' => $token->getValue()]);
 
         $email = new SymfonyEmail();

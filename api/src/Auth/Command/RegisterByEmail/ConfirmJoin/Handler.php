@@ -15,7 +15,7 @@ class Handler
     {
     }
 
-    public function handler(Command $command): void
+    public function handle(Command $command): void
     {
         $token = $command->token;
         $user = $this->repository->findByConfirmToken($token);
