@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Auth\Command\ResetPassword\Reset;
 
 use App\Auth\Repository\UserRepositoryInterface;
-use App\Auth\Serivces\HasherInterface;
+use App\Auth\Services\HasherInterface;
 use App\Utils\Flusher;
 use DateTimeImmutable;
 use DomainException;

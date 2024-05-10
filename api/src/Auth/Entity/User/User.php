@@ -2,8 +2,8 @@
 
 namespace App\Auth\Entity\User;
 
-use App\Auth\Serivces\HasherInterface;
-use App\Auth\Serivces\TokenizerInterface;
+use App\Auth\Services\HasherInterface;
+use App\Auth\Services\TokenizerInterface;
 use ArrayObject;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -177,7 +177,7 @@ class User
             $this->resetToken = null;
         }
 
-        if(!$this->changeEmailToken->getValue()) {
+        if(!$this->changeEmailToken?->getValue()) {
             $this->changeEmailToken = null;
         }
     }

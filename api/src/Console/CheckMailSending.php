@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console;
 
+use PHPMailer\PHPMailer\PHPMailer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,7 +27,6 @@ class CheckMailSending extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->write('<info>Hello</info>');
-
         $email = (new Email())
             ->from('hello@example.com')
             ->to('you@example.com')

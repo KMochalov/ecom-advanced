@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Auth\Serivces;
+namespace App\Auth\Services;
 
 use App\Auth\Entity\User\Token;
-use App\Auth\Serivces\TokenizerInterface;
+use App\Auth\Services\TokenizerInterface;
 use DateTimeImmutable;
 use Ramsey\Uuid\Uuid;
 

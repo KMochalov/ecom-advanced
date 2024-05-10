@@ -6,7 +6,7 @@ namespace App\Auth\Command\ChangePassword;
 
 use App\Auth\Entity\User\Id;
 use App\Auth\Repository\UserRepositoryInterface;
-use App\Auth\Serivces\HasherInterface;
+use App\Auth\Services\HasherInterface;
 use App\Utils\Flusher;
 
 class Handler

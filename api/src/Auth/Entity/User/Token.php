@@ -20,14 +20,14 @@ class Token
         Assert::uuid($this->token);
     }
 
-    public function getValue(): string
+    public function getValue(): ?string
     {
-        return $this->token;
+        return $this->token ?? null;
     }
 
-    public function expireAt(): DateTimeImmutable
+    public function expireAt(): ?DateTimeImmutable
     {
-        return $this->expireAt;
+        return $this->expireAt ?? null;
     }
 
     public function validate(string $token, DateTimeImmutable $date): bool

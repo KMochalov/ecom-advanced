@@ -4,8 +4,8 @@ namespace App\Auth\Tests\Unit\Entity\User;
 
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Id;
-use App\Auth\Serivces\Hasher;
-use App\Auth\Serivces\Tokenizer;
+use App\Auth\Services\Hasher;
+use App\Auth\Services\Tokenizer;
 use PHPUnit\Framework\TestCase;
 use App\Auth\Entity\User\User;
 use DateTimeImmutable;

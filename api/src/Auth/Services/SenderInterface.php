@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Auth\Serivces;
+namespace App\Auth\Services;
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Token;
 interface SenderInterface

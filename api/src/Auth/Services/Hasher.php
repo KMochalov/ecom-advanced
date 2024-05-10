@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Auth\Serivces;
+namespace App\Auth\Services;
 
-use App\Auth\Serivces\HasherInterface;
+use App\Auth\Services\HasherInterface;
 
 class Hasher implements HasherInterface
 {

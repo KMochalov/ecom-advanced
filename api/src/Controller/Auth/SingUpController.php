@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller\Auth;
 
-use App\Auth\Command\ChangeEmail\Request\Command;
-use App\Auth\Command\ChangeEmail\Request\Handler;
+use App\Auth\Command\RegisterByEmail\Request\Command;
+use App\Auth\Command\RegisterByEmail\Request\Handler;
 use Exception;
 use Psr\Log\LogLevel;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Response;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
