@@ -32,3 +32,10 @@ services:
         arguments:
             $senderEmail: '%env(TECH_EMAIL_FROM)%'
             $frontendUrl: '%env(FRONTEND_URL)%'
+    App\Security\UserIdentity:
+        arguments:
+            $roles: []
+            $id: string
+            $email: string
+            $passwordHash: ?string
+

@@ -2,19 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\Api\V1;
 
-use App\Auth\Command\ChangeEmail\Request\Command;
-use App\Auth\Command\ChangeEmail\Request\Handler;
-use App\Auth\Entity\User\Email;
-use App\Auth\Entity\User\Id;
-use App\Auth\Repository\UserRepository;
 use App\Auth\Repository\UserRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Config\Definition\Builder\ValidationBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validation;
 
 /**
  * @psalm-suppress UnusedClass

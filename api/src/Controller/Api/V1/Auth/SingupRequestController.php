@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Auth;
+namespace App\Controller\Api\V1\Auth;
 
 use App\Auth\Command\RegisterByEmail\Request\Command;
 use App\Auth\Command\RegisterByEmail\Request\Handler;
 use Exception;
-use Psr\Log\LogLevel;
-use Symfony\Component\Dotenv\Dotenv;
-use Symfony\Component\HttpFoundation\Response;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\Routing\Annotation\Route;
 
 class SingupRequestController extends AbstractController
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Auth;
+namespace App\Controller\Api\V1\Auth;
 
 use App\Auth\Command\RegisterByEmail\ConfirmJoin\Command;
 use App\Auth\Command\RegisterByEmail\ConfirmJoin\Handler;

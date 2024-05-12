@@ -49,7 +49,7 @@ class Handler
             $command->identity
         );
 
-        if ($this->repository->existByNetworkIdentity($networkIdentity)) {
+        if ($this->repository->existByNetworkIdentity($networkIdentity->getNetwork(), $networkIdentity->getIdentity())) {
             throw new DomainException('Пользователь с такой соцсетью есть');
         }
 

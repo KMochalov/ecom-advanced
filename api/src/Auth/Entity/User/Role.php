@@ -9,8 +9,8 @@ use Webmozart\Assert\Assert;
 
 class Role
 {
-    public const ROLE_USER = 'user';
-    public const ROLE_ADMIN = 'admin';
+    public const ROLE_USER = 'ROLE_USER';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
 
     public function __construct(
         private readonly string $role
