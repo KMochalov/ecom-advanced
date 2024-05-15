@@ -21,6 +21,19 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     public function refreshUser(UserInterface $user)
     {
         return $user;
+
+//        $user = $this->repository->findByEmail(new Email($user->getUserIdentifier()));
+//
+//        if (null === $user) {
+//            throw new UserNotFoundException();
+//        }
+//
+//        return new UserIdentity(
+//            [$user->getRole()->getRole()],
+//            $user->getId()->getValue(),
+//            $user->getEmail()->getValue(),
+//            $user->getPasswordHash()
+//        );
     }
 
     public function supportsClass(string $class): bool
@@ -31,9 +44,11 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
         $user = $this->repository->findByEmail(new Email($identifier));
+
         if (null === $user) {
             throw new UserNotFoundException();
         }
+
         return new UserIdentity(
             [$user->getRole()->getRole()],
             $user->getId()->getValue(),
