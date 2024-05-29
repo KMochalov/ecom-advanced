@@ -67,6 +67,13 @@ services:
     ports:
       - "8192:8025"
 
+  nodejs:
+    image: node:21
+    volumes:
+      - ./frontend:/var/www/frontend
+    working_dir: /var/www/frontend
+    tty: true
+
 
 ### Это для линукса. Лочим ip чтобы работать с xdebug
 #networks:
