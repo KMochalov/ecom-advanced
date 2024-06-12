@@ -20,20 +20,20 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 
     public function refreshUser(UserInterface $user)
     {
-        return $user;
+       // return $user;
 
-//        $user = $this->repository->findByEmail(new Email($user->getUserIdentifier()));
-//
-//        if (null === $user) {
-//            throw new UserNotFoundException();
-//        }
-//
-//        return new UserIdentity(
-//            [$user->getRole()->getRole()],
-//            $user->getId()->getValue(),
-//            $user->getEmail()->getValue(),
-//            $user->getPasswordHash()
-//        );
+        $user = $this->repository->findByEmail(new Email($user->getUserIdentifier()));
+
+        if (null === $user) {
+            throw new UserNotFoundException();
+        }
+
+        return new UserIdentity(
+            [$user->getRole()->getRole()],
+            $user->getId()->getValue(),
+            $user->getEmail()->getValue(),
+            $user->getPasswordHash()
+        );
     }
 
     public function supportsClass(string $class): bool
