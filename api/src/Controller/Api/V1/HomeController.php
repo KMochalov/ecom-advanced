@@ -22,7 +22,7 @@ class HomeController extends AbstractController
     {
     }
 
-    #[Route('/', name: 'test', format: 'json')]
+    #[Route('/test', name: 'test', format: 'json')]
     public function index(): Response
     {
         $userIdentity = $this->getUser();

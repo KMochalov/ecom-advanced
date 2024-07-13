@@ -3,13 +3,11 @@
 namespace App\Auth\Entity\User;
 
 use App\Auth\Services\HasherInterface;
-use App\Auth\Services\TokenizerInterface;
-use ArrayObject;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use DomainException;
 use Doctrine\ORM\Mapping as ORM;
+use DomainException;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user_users')]
@@ -42,6 +40,9 @@ class User
     private Status $status;
     #[ORM\OneToMany(targetEntity: 'NetworkIdentity', mappedBy: 'user', cascade: ['persist'], orphanRemoval: true)]
     private Collection $networks;
+
+    #[ORM\OneToMany(targetEntity: 'Accesstoken', mappedBy: 'user', cascade: ['persist'], orphanRemoval: true)]
+    private Collection $accesstokens;
 
     public function __construct(
         Id $id,

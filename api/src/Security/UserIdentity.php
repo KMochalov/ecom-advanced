@@ -41,7 +41,7 @@ class UserIdentity implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        // TODO: Implement eraseCredentials() method;
     }
 
     public function getUserIdentifier(): string

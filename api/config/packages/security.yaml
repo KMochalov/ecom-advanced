@@ -24,26 +24,34 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-        login:
-            pattern: ^/api/login
-            stateless: true
-            json_login:
-                check_path: /api/login_check
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
-                provider: user_custom_provider
+#        login:
+#            pattern: ^/api/login
+#            stateless: true
+#            json_login:
+#                check_path: /api/login_check
+#                success_handler: lexik_jwt_authentication.handler.authentication_success
+#                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+#                provider: user_custom_provider
         api:
             pattern: ^/api
+            json_login:
+                # api_login is a route we will create below
+                #тут надо указывать имя роута так
+                check_path: api.v1.api_login
+                provider: user_custom_provider
+            access_token:
+                token_handler: App\Security\AccessTokenHandler
             stateless: true
-            jwt: ~
+           # jwt: ~
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/v1/assign_role,roles: ROLE_ADMIN }
-        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/v1/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/v1/signup-request, roles: PUBLIC_ACCESS }
+        - { path: ^/api/v1/test, roles: IS_AUTHENTICATED_FULLY }
      #   - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
