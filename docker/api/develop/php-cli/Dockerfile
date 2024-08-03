@@ -19,7 +19,7 @@ RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 COPY  ./common/php/conf.d /usr/local/etc/php/conf.d
 COPY  ./develop/php/conf.d /usr/local/etc/php/conf.d
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --quiet \
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
      --no-plugins --no-scripts \
     && rm -rf /root/.composer/cache
 

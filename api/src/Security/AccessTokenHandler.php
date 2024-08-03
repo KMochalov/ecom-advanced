@@ -31,10 +31,4 @@ class AccessTokenHandler implements AccessTokenHandlerInterface
 
         return new UserBadge($token->getUser()->getEmail()->getValue());
     }
-
-
-//    public function getUserBadgeFrom(#[\SensitiveParameter] string $accessToken): UserBadge
-//    {
-//        // TODO: Implement getUserBadgeFrom() method.
-//    }
 }
