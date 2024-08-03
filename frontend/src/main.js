@@ -12,4 +12,15 @@ const options = {
     position: POSITION.BOTTOM_CENTER,
     timeout: 5000,
 };
-createApp(App).use(store).use(router).use(Toast,options).mount('#app')
+
+const token = localStorage.getItem('authToken');
+if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
+
+const app = createApp(App);
+app.use(store);
+app.use(router);
+app.use(Toast,options);
+app.config.globalProperties.$http = axios; // Установка axios как глобального свойства
+app.mount('#app')
