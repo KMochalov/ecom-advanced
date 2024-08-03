@@ -9,7 +9,6 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Auth\Entity\User\User;
 use App\Auth\Entity\User\Accesstoken;
 use App\Auth\Repository\AccesstokenRepository;
 use App\Utils\Flusher;
