@@ -2,6 +2,7 @@
 
 namespace App\Auth\Command\RegisterByEmail\ConfirmJoin;
 
+use App\Auth\Entity\User\User;
 use App\Auth\Repository\UserRepositoryInterface;
 use App\Utils\Flusher;
 use DateTimeImmutable;
@@ -15,7 +16,7 @@ class Handler
     {
     }
 
-    public function handle(Command $command): void
+    public function handle(Command $command): User
     {
         $token = $command->token;
         $user = $this->repository->findByConfirmToken($token);
@@ -25,5 +26,7 @@ class Handler
         $user->confirmJoin($token, new DateTimeImmutable());
 
         $this->flusher->flush();
+
+        return $user;
     }
 }

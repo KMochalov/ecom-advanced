@@ -20,7 +20,7 @@ class Sender implements SenderInterface
 
     public function send(UserEmail $userEmail, Token $token): void
     {
-        $body ='Подтвердите регистрацию на сайте'
+        $body ='Подтвердите регистрацию на сайте '
             . $this->frontendUrl
             . '/signup-confirm?'
             . http_build_query(['token' => $token->getValue()]);

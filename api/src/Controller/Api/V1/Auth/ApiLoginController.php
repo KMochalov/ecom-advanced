@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api\V1\Auth;
 
+use App\Auth\Command\LoginByEmail\Handler;
 use App\Auth\Entity\User\Id;
 use App\Auth\Repository\UserRepository;
 use App\Security\UserIdentity;
@@ -17,9 +18,7 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 class ApiLoginController extends AbstractController
 {
     public function __construct(
-        private UserRepository $userRepository,
-        private AccesstokenRepository $accesstokenRepository,
-        private Flusher $flusher
+        private Handler $handler
     ){}
     #[Route('/login', name: 'api_login', methods: ['POST'])]
     public function login(#[CurrentUser] ?UserIdentity $userIdentity): Response
@@ -30,15 +29,7 @@ class ApiLoginController extends AbstractController
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        $user = $this->userRepository->get(new Id($userIdentity->getId()));
-        $token = new Accesstoken(
-            Id::generate(),
-            $user,
-            Uuid::uuid4()->toString(),
-            (new \DateTimeImmutable())->modify('+1 month'),
-        );
-        $this->accesstokenRepository->add($token);
-        $this->flusher->flush();
+        $token = $this->handler->handle($userIdentity);
 
         return $this->json([
             'token' => $token->getToken()
