@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ConfirmView from '@/views/ConfirmView.vue';
+import LoginView from '@/views/LoginView.vue';
 
 const routes = [
   {
@@ -22,6 +23,7 @@ const routes = [
     component: ConfirmView,
     props: route => ({ query: route.query })
   },
+  { path: '/login', name: 'login', component: LoginView },
 ]
 
 const router = createRouter({
