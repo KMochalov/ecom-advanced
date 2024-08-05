@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Controller\Api\V1\Auth;
+namespace App\Controller\Api\V1\Cabinet;
 
-use App\Auth\Command\JoinByNetwork\Command;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileController extends AbstractController
