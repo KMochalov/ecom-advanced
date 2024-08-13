@@ -2,13 +2,8 @@
 
 namespace App\Cabinet\Entity;
 
-use App\Cabinet\Entity\Id;
-use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use DomainException;
-
+use App\Entity\Id;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user_profiles')]
@@ -16,11 +11,11 @@ use DomainException;
 #[ORM\UniqueConstraint(name: "user_id", columns: ["user_id"])]
 class Profile
 {
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'uuid', unique: true)]
     #[ORM\Id]
-    private string $id;
-    #[ORM\Column(type: 'string')]
-    private string $user_id;
+    private Id $id;
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private Id $user_id;
     #[ORM\Column(type: 'string')]
     private string $name;
     #[ORM\Column(type: 'string')]

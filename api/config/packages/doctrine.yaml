@@ -12,6 +12,7 @@ doctrine:
             user_email: 'App\Auth\Entity\User\EmailType'
             user_role: 'App\Auth\Entity\User\RoleType'
             user_id: 'App\Auth\Entity\User\IdType'
+            uuid: 'App\Entity\IdType'
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
@@ -26,6 +27,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Auth/Entity'
                 prefix: 'App\Auth\Entity'
                 alias: User
+            Cabinet:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Cabinet/Entity'
+                prefix: 'App\Cabinet\Entity'
+                alias: Cabinet
         controller_resolver:
             auto_mapping: false
 
