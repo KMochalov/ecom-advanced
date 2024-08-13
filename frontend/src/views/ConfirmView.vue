@@ -14,22 +14,21 @@ import { useToast } from 'vue-toastification';
 
 export default {
   name: 'ConfirmView',
-  setup() {
+  setup(_, { emit }) {
     const toast = useToast();
     const router = useRouter();
-    const route = useRoute(); // Использование useRoute для доступа к параметрам запроса
-    const token = route.query.token; // Получение параметра запроса "token"
+    const route = useRoute();
     const loading = ref(true);
     const error = ref(null);
     const success = ref(null);
 
     onMounted(async () => {
       try {
+        const token = route.query.token;
         if (!token) {
           throw new Error('Токен подтверждения отсутствует.');
         }
 
-        // Отправка запроса на подтверждение регистрации
         const response = await axios.get(`/api/v1/signup-confirm?token=${token}`);
 
         if (response.status === 200) {
@@ -42,6 +41,9 @@ export default {
           // Установка заголовка Authorization по умолчанию
           axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 
+          // Обновление состояния isAuthenticated вручную
+          emit('authChanged', true);
+
           // Перенаправление на главную страницу
           router.push('/');
         }
@@ -53,7 +55,7 @@ export default {
       }
     });
 
-    return { loading, error, success };
-  },
+    return {loading, error, success};
+  }
 };
 </script>

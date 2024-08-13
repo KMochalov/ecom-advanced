@@ -6,7 +6,7 @@
       <router-link v-if="!isAuthenticated" to="/login">Вход</router-link>
       <button v-if="isAuthenticated" @click="logout">Выход</button>
     </nav>
-    <router-view/>
+    <router-view @authChanged="handleAuthChanged"/>
   </div>
 </template>
 
@@ -27,6 +27,13 @@ export default {
       router.push('/');
     };
 
+    const handleAuthChanged = (authStatus) => {
+      isAuthenticated.value = authStatus;
+      if (authStatus) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('authToken')}`;
+      }
+    };
+
     watchEffect(() => {
       isAuthenticated.value = !!localStorage.getItem('authToken');
       if (isAuthenticated.value) {
@@ -34,8 +41,8 @@ export default {
       }
     });
 
-    return { isAuthenticated, logout };
-  },
+    return { isAuthenticated, logout, handleAuthChanged };
+  }
 };
 </script>
 

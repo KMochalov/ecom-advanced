@@ -41,6 +41,10 @@ export default {
         if (response.data.token) {
           localStorage.setItem('authToken', response.data.token);
           axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+
+          // Уведомляем App.vue о том, что пользователь аутентифицирован
+          this.$emit('authChanged', true);
+
           this.$router.push('/');
           toast.success('Вы успешно вошли в систему!');
         }
@@ -49,7 +53,7 @@ export default {
         console.error(error);
       }
     },
-  },
+  }
 };
 </script>
 
