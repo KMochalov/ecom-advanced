@@ -27,4 +27,9 @@ class ProfileRepository
         return (bool) $this->repository->findOneBy(['user_id' => $userId->getValue()]);
     }
 
+    public function getProfileByUserId(string $userId): ?Profile
+    {
+        return $this->repository->findOneBy(['user_id' => $userId]);
+    }
+
 }

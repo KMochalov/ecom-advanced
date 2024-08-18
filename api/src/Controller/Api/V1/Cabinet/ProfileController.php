@@ -2,6 +2,9 @@
 
 namespace App\Controller\Api\V1\Cabinet;
 
+use App\Cabinet\Fetcher\UserProfileFetcher;
+use App\Entity\Email;
+use App\Security\UserIdentity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileController extends AbstractController
 {
-    public function __construct(private Security $security)
+    public function __construct(private Security $security, private UserProfileFetcher $fetcher)
     {
     }
 
@@ -20,8 +23,10 @@ class ProfileController extends AbstractController
     )]
     public function getProfile(): Response
     {
+        /** @var UserIdentity $user */
         $user = $this->security->getUser();
-
-        return $this->json([$user]);
+        $profile = $this->fetcher->fetch($user->getId());
+        $profile->setEmail(new Email($user->getUserIdentifier()));
+        return $this->json([$profile]);
     }
 }

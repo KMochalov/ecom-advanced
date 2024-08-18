@@ -2,6 +2,7 @@
 
 namespace App\Cabinet\Entity;
 
+use App\Entity\Email;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Id;
 
@@ -16,14 +17,16 @@ class Profile
     private Id $id;
     #[ORM\Column(type: 'uuid', unique: true)]
     private Id $user_id;
-    #[ORM\Column(type: 'string')]
-    private string $name;
-    #[ORM\Column(type: 'string')]
-    private string $photo;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $name;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $photo;
+    private ?Email $email;
 
     public function __construct(
-        string $id,
-        string $user_id
+        Id $id,
+        Id $user_id,
+        ?Email $email = null
     )
     {
         $this->id = $id;
@@ -40,7 +43,7 @@ class Profile
         return $this->user_id;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -50,7 +53,7 @@ class Profile
         $this->name = $name;
     }
 
-    public function getPhoto(): string
+    public function getPhoto(): ?string
     {
         return $this->photo;
     }
@@ -58,5 +61,15 @@ class Profile
     public function setPhoto(string $photo): void
     {
         $this->photo = $photo;
+    }
+
+    public function getEmail(): ?Email
+    {
+        return $this->email;
+    }
+
+    public function setEmail(Email $email): void
+    {
+        $this->email = $email;
     }
 }

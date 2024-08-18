@@ -6,6 +6,7 @@ namespace App\Auth\Command\RegisterByEmail\Request;
 
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\User;
+use App\Auth\Events\NewUserEvent;
 use App\Auth\Repository\UserRepositoryInterface;
 use App\Auth\Services\HasherInterface;
 use App\Auth\Services\SenderInterface;
@@ -14,6 +15,7 @@ use DateTimeImmutable;
 use DomainException;
 use App\Auth\Entity\User\Id;
 use App\Utils\Flusher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Handler
 {
@@ -23,6 +25,7 @@ class Handler
         private TokenizerInterface $tokenizer,
         private HasherInterface $hasher,
         private Flusher $flusher,
+        private EventDispatcherInterface $eventDispatcher,
     )
     {
     }
@@ -48,5 +51,6 @@ class Handler
         $this->repository->add($user);
         $this->flusher->flush();
         $this->sender->send($email, $token);
+        $this->eventDispatcher->dispatch(new NewUserEvent($user->getId()));
     }
 }

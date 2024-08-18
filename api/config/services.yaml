@@ -38,4 +38,6 @@ services:
             $id: string
             $email: string
             $passwordHash: ?string
+    App\Cabinet\EventListeners\NewUserListener:
+        tags: [ kernel.event_listener ]
 
