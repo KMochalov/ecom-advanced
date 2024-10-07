@@ -4,13 +4,14 @@
     <form @submit.prevent="login">
       <div>
         <label for="email">Email:</label>
-        <input type="email" v-model="form.email" required>
+        <input type="email" v-model="form.email" required />
       </div>
       <div>
         <label for="password">Пароль:</label>
-        <input type="password" v-model="form.password" required>
+        <input type="password" v-model="form.password" required />
       </div>
       <button type="submit">Войти</button>
+      <router-link to="/forgot-password" class="reset-password">Забыл пароль?</router-link>
     </form>
   </div>
 </template>
@@ -35,16 +36,13 @@ export default {
       try {
         const response = await axios.post('/api/v1/login', {
           username: this.form.email,
-          password: this.form.password
+          password: this.form.password,
         });
 
         if (response.data.token) {
           localStorage.setItem('authToken', response.data.token);
           axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-
-          // Уведомляем App.vue о том, что пользователь аутентифицирован
           this.$emit('authChanged', true);
-
           this.$router.push('/');
           toast.success('Вы успешно вошли в систему!');
         }
@@ -53,7 +51,7 @@ export default {
         console.error(error);
       }
     },
-  }
+  },
 };
 </script>
 
@@ -89,9 +87,19 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-right: 10px; /* Отступ между кнопками */
 }
 
 button:hover {
   background-color: #38a169;
 }
+
+.reset-password {
+  background-color: transparent;
+  color: #42b983;
+  text-decoration: underline;
+  border: none;
+  cursor: pointer;
+}
+
 </style>

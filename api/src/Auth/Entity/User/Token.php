@@ -13,7 +13,7 @@ class Token
     public function __construct(
         #[ORM\Column(type: 'string', nullable: true)]
         private string $token,
-        #[ORM\Column(type: 'date_immutable', nullable: true)]
+        #[ORM\Column(type: 'datetime_immutable', nullable: true)]
         private DateTimeImmutable $expireAt
     )
     {
@@ -45,5 +45,10 @@ class Token
 
     public function expired(DateTimeImmutable $date): bool{
         return $date > $this->expireAt;
+    }
+
+    public function getDifferenceInSeconds(self $token): int
+    {
+        return $token->expireAt->getTimestamp() - $this->expireAt->getTimestamp();
     }
 }

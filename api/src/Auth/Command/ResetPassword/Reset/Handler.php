@@ -23,7 +23,7 @@ class Handler
     public function handle(Command $command): void
     {
         if (!$user = $this->repository->findByResetToken($command->token)) {
-            throw new DomainException('Токена не существует');
+            throw new DomainException('Токена не существует (ссылка уже использована)');
         }
 
         $user->resetPassword(

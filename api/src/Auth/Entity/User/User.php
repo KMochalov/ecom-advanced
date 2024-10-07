@@ -35,7 +35,7 @@ class User
     private Email $email;
     #[ORM\Column(type: 'email', nullable: true)]
     private ?Email $newEmail;
-    #[ORM\Column(type: 'date_immutable', name: 'created_at')]
+    #[ORM\Column(type: 'datetime_immutable', name: 'created_at')]
     private DateTimeImmutable $createdAt;
     #[ORM\Embedded(class: Status::class)]
     private Status $status;
@@ -85,6 +85,11 @@ class User
     public function requestResetPassword(Token $token): void
     {
         $this->resetToken = $token;
+    }
+
+    public function getResetToken(): ?Token
+    {
+        return $this->resetToken;
     }
 
     public function attachNetwork(NetworkIdentity $networkIdentity): void
@@ -191,7 +196,7 @@ class User
 
     public function changePassword(string $old, string $new, HasherInterface $hasher): void
     {
-        if($this->passwordHash) {
+        if(!$this->passwordHash) {
             throw new DomainException('пароля еще нет');
         }
 
@@ -200,7 +205,6 @@ class User
         }
 
         $this->passwordHash = $hasher->hash($new);
-
     }
 
     public function changeEmailRequest(Email $newEmail, DateTimeImmutable $date, Token $token): void
