@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DomainException;
+use App\Entity\Email;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user_users')]
@@ -30,9 +31,9 @@ class User
     #[ORM\Column(type: 'user_id')]
     #[ORM\Id]
     private Id $id;
-    #[ORM\Column(type: 'user_email')]
+    #[ORM\Column(type: 'email')]
     private Email $email;
-    #[ORM\Column(type: 'user_email', nullable: true)]
+    #[ORM\Column(type: 'email', nullable: true)]
     private ?Email $newEmail;
     #[ORM\Column(type: 'date_immutable', name: 'created_at')]
     private DateTimeImmutable $createdAt;

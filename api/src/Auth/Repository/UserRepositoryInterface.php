@@ -2,7 +2,7 @@
 
 namespace App\Auth\Repository;
 
-use App\Auth\Entity\User\Email;
+use App\Entity\Email;
 use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\NetworkIdentity;
 use App\Auth\Entity\User\User;

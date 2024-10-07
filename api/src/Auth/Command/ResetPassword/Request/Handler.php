@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Auth\Command\ResetPassword\Request;
 
-use App\Auth\Entity\User\Email;
+use App\Entity\Email;
 use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\User;
 use App\Auth\Repository\UserRepositoryInterface;

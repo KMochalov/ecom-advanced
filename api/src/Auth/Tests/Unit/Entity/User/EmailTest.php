@@ -2,7 +2,7 @@
 
 namespace App\Auth\Tests\Unit\Entity\User;
 
-use App\Auth\Entity\User\Email;
+use App\Entity\Email;
 use DomainException;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;

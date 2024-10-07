@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Auth\Command\RegisterByEmail\Request;
 
-use App\Auth\Entity\User\Email;
+use App\Entity\Email;
 use App\Auth\Entity\User\User;
 use App\Auth\Events\NewUserEvent;
 use App\Auth\Repository\UserRepositoryInterface;
@@ -25,7 +25,6 @@ class Handler
         private TokenizerInterface $tokenizer,
         private HasherInterface $hasher,
         private Flusher $flusher,
-        private EventDispatcherInterface $eventDispatcher,
     )
     {
     }
@@ -51,6 +50,5 @@ class Handler
         $this->repository->add($user);
         $this->flusher->flush();
         $this->sender->send($email, $token);
-        $this->eventDispatcher->dispatch(new NewUserEvent($user->getId()));
     }
 }

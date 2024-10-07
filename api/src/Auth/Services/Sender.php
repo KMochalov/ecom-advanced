@@ -2,7 +2,7 @@
 
 namespace App\Auth\Services;
 
-use App\Auth\Entity\User\Email as UserEmail;
+use App\Entity\Email as UserEmail;
 use App\Auth\Entity\User\Token;
 use App\Auth\Services\SenderInterface;
 use Symfony\Component\Mailer\MailerInterface;

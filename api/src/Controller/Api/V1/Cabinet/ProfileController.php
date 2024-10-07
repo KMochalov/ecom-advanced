@@ -26,7 +26,6 @@ class ProfileController extends AbstractController
         /** @var UserIdentity $user */
         $user = $this->security->getUser();
         $profile = $this->fetcher->fetch($user->getId());
-        $profile->setEmail(new Email($user->getUserIdentifier()));
-        return $this->json([$profile]);
+        return $this->json($profile->toArray());
     }
 }

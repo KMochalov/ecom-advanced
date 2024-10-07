@@ -2,7 +2,7 @@
   <div class="home">
     <h1>Добро пожаловать!</h1>
     <p v-if="isAuthenticated">
-      Вы вошли в систему. Перейдите в <router-link to="/">личный кабинет</router-link>.
+      Вы вошли в систему. Перейдите в <router-link to="/profile">личный кабинет</router-link>.
     </p>
     <p v-else>
       Пожалуйста, <router-link to="/registration">зарегистрируйтесь</router-link> или <router-link to="/login">войдите</router-link>.

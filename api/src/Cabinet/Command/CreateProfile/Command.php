@@ -10,6 +10,9 @@ class Command
         #[Assert\NotBlank]
         #[Assert\Ulid]
         public string $userId,
+        #[Assert\NotBlank]
+        #[Assert\Email]
+        public string $email,
     ) {
     }
 }

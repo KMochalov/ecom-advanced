@@ -12,25 +12,21 @@ use App\Entity\Id;
 #[ORM\UniqueConstraint(name: "user_id", columns: ["user_id"])]
 class Profile
 {
-    #[ORM\Column(type: 'uuid', unique: true)]
-    #[ORM\Id]
-    private Id $id;
-    #[ORM\Column(type: 'uuid', unique: true)]
-    private Id $user_id;
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $name;
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $photo;
-    private ?Email $email;
 
     public function __construct(
-        Id $id,
-        Id $user_id,
-        ?Email $email = null
-    )
-    {
-        $this->id = $id;
-        $this->user_id = $user_id;
+       #[ORM\Column(type: 'uuid', unique: true)]
+       #[ORM\Id]
+       private Id $id,
+       #[ORM\Column(type: 'uuid', unique: true)]
+       private Id $user_id,
+       #[ORM\Column(type: 'email', nullable: true)]
+       private Email $email,
+    ) {
+
     }
 
     public function getId(): string
@@ -63,7 +59,7 @@ class Profile
         $this->photo = $photo;
     }
 
-    public function getEmail(): ?Email
+    public function getEmail(): Email
     {
         return $this->email;
     }
@@ -71,5 +67,16 @@ class Profile
     public function setEmail(Email $email): void
     {
         $this->email = $email;
+    }
+
+
+    public function toArray(): array
+    {
+        return [
+            'user_id' => $this->user_id->getValue(),
+            'name' => $this->name,
+            'photo' => $this->photo,
+            'email' => $this->email->getValue()
+        ];
     }
 }

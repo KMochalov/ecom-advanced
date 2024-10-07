@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Auth\Entity\User;
+namespace App\Entity;
 
-use Doctrine\DBAL\Types\StringType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use App\Auth\Entity\User\Email;
+use Doctrine\DBAL\Types\StringType;
 
 class EmailType extends StringType
 {
-    const NAME = 'user_email';
+    const NAME = 'email';
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?Email
     {

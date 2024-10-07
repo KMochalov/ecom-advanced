@@ -31,5 +31,4 @@ class ProfileRepository
     {
         return $this->repository->findOneBy(['user_id' => $userId]);
     }
-
 }

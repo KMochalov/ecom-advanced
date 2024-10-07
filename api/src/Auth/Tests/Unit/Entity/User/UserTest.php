@@ -2,7 +2,7 @@
 
 namespace App\Auth\Tests\Unit\Entity\User;
 
-use App\Auth\Entity\User\Email;
+use App\Entity\Email;
 use App\Auth\Entity\User\Id;
 use App\Auth\Services\Hasher;
 use App\Auth\Services\Tokenizer;
