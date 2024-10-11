@@ -36,6 +36,9 @@ services:
         arguments:
             $senderEmail: '%env(TECH_EMAIL_FROM)%'
             $frontendUrl: '%env(FRONTEND_URL)%'
+    App\Auth\Command\ResetPassword\Request\Handler:
+        arguments:
+            $sender: '@App\Auth\Services\ResetPasswordRequestSender'
     App\Security\UserIdentity:
         arguments:
             $roles: []

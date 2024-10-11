@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace App\Auth\Command\ResetPassword\Request;
 
-use App\Auth\Services\ResetPasswordRequestSender;
 use App\Entity\Email;
-use App\Auth\Entity\User\Id;
-use App\Auth\Entity\User\User;
 use App\Auth\Repository\UserRepositoryInterface;
-use App\Auth\Services\HasherInterface;
 use App\Auth\Services\SenderInterface;
 use App\Auth\Services\TokenizerInterface;
 use App\Utils\Flusher;
@@ -20,7 +16,7 @@ class Handler
 {
     public function __construct(
         private UserRepositoryInterface $repository,
-        private ResetPasswordRequestSender $sender,
+        private SenderInterface $sender,
         private TokenizerInterface $tokenizer,
         private Flusher $flusher,
     )
