@@ -4,6 +4,7 @@ namespace App\Cabinet\Repository;
 
 use App\Cabinet\Entity\Profile;
 use App\Entity\Id;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 

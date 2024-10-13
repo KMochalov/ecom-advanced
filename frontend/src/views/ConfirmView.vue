@@ -45,7 +45,7 @@ export default {
           emit('authChanged', true);
 
           // Перенаправление на главную страницу
-          router.push('/');
+          await router.push('/');
         }
       } catch (err) {
         error.value = err.response?.data?.message || 'Ошибка подтверждения регистрации. Пожалуйста, попробуйте снова.';

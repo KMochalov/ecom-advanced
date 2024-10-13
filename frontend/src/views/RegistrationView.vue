@@ -1,19 +1,42 @@
 <template>
-  <div class="registration">
-    <h1>Регистрация</h1>
-    <form @submit.prevent="register">
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" v-model="form.email" required>
-      </div>
-      <div>
-        <label for="password">Пароль:</label>
-        <input type="password" v-model="form.password" required>
-      </div>
-      <button type="submit">Зарегистрироваться</button>
-    </form>
-    <div v-if="error" class="error">{{ error }}</div>
-  </div>
+  <v-card
+      width="400" class="mx-auto mt-5"
+  >
+    <v-card-title>
+      <h1>Регистрация</h1>
+    </v-card-title>
+    <v-card-text>
+      <v-form ref="form">
+        <v-text-field
+            v-model="form.email"
+            label="Email"
+            prepend-inner-icon="mdi-account-circle"
+            :rules="emailRules"
+            required
+        />
+        <v-text-field
+            v-model="form.password"
+            :type="showPassword ? 'text': 'password'"
+            label="Пароль"
+            required
+            :rules="passwordRules"
+            prepend-inner-icon="mdi-lock"
+            :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append-inner="showPassword = !showPassword"
+        />
+      </v-form>
+      <v-card-actions>
+        <v-btn
+            @click="register"
+        >
+          Регистрация
+        </v-btn>
+      </v-card-actions>
+    </v-card-text>
+  </v-card>
+  <v-form>
+
+  </v-form>
 </template>
 
 <script>
@@ -28,25 +51,50 @@ export default {
         email: '',
         password: '',
       },
+      showPassword: false,
+      emailRules: [
+        value => {
+          if (value) return true
+
+          return 'Email - обязательно для заполнения'
+        },
+        value => {
+          if (/.+@.+\..+/.test(value)) return true
+
+          return 'Введен некорректный Email'
+        },
+      ],
+      passwordRules: [
+        value => !!value || 'Пароль - обязателен для заполнения',
+        // (value) => (value && /\d/.test(value)) || 'At least one digit',
+        // (value) => (value && /[A-Z]{1}/.test(value)) || 'At least one capital latter',
+        // (value) => (value && /[^A-Za-z0-9]/.test(value)) || 'At least one special character',
+        (value) => (value && value.length >= 5 ) || 'минимальная длина пароля - 5 цифр',
+      ],
+      validationErrorMessage: '', // Состояние для сообщения об ошибке
       error: null,
     };
   },
-  setup() {
-    const toast = useToast();
-    return { toast };
-  },
   methods: {
     async register() {
+      const isValid = await this.$refs.form.validate();
+
+      const toast = useToast();
+      if (!isValid.valid) {
+        this.validationErrorMessage = 'Ошибка валидации формы.'; // Устанавливаем сообщение об ошибке
+        toast.error(this.validationErrorMessage);
+        return; // Прекращаем выполнение, если форма не валидна
+      }
       try {
         this.error = null;
         const response = await axios.post('/api/v1/signup-request', this.form);
         if (response.status === 201) {
-          this.toast.success('Запрос на регистрацию отправлен! Проверьте указанную почту');
+          toast.success('Запрос на регистрацию отправлен! Проверьте указанную почту');
           this.$router.push('/');
         }
       } catch (error) {
         const errorMessage = error.response?.data?.detail || 'Ошибка запроса на регистрацию. Пожалуйста, попробуйте снова.';
-        this.toast.error(`Ошибка запроса на регистрацию: ${errorMessage}`);
+        toast.error(`Ошибка запроса на регистрацию: ${errorMessage}`);
         console.error(error);
       }
     },
@@ -55,46 +103,4 @@ export default {
 </script>
 
 <style scoped>
-.registration {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #42b983;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #38a169;
-}
-
-.error {
-  margin-top: 20px;
-  color: red;
-  font-weight: bold;
-}
 </style>

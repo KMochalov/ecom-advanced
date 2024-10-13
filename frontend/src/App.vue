@@ -16,33 +16,35 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 
 export default {
-  setup() {
-    const isAuthenticated = ref(!!localStorage.getItem('authToken'));
-    const router = useRouter();
-
-    const logout = () => {
+  data() {
+    return {
+      isAuthenticated: !!localStorage.getItem('authToken'),
+    };
+  },
+  methods: {
+    logout() {
       localStorage.removeItem('authToken');
       delete axios.defaults.headers.common['Authorization'];
-      isAuthenticated.value = false;
-      router.push('/');
-    };
-
-    const handleAuthChanged = (authStatus) => {
-      isAuthenticated.value = authStatus;
+      this.isAuthenticated = false;
+      this.$router.push('/');
+    },
+    handleAuthChanged(authStatus) {
+      this.isAuthenticated = authStatus;
       if (authStatus) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('authToken')}`;
       }
-    };
-
-    watchEffect(() => {
-      isAuthenticated.value = !!localStorage.getItem('authToken');
-      if (isAuthenticated.value) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('authToken')}`;
-      }
-    });
-
-    return { isAuthenticated, logout, handleAuthChanged };
-  }
+    },
+  },
+  watch: {
+    isAuthenticated: {
+      handler(newValue) {
+        if (newValue) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('authToken')}`;
+        }
+      },
+      immediate: true,
+    },
+  },
 };
 </script>
 
