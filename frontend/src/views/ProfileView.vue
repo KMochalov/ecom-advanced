@@ -1,37 +1,26 @@
 <template>
-  <div>
-    <h1>Личный кабинет</h1>
-    <div v-if="profile">
-      <p><strong>Имя:</strong> {{ profile.name || 'Не указано' }}</p>
-      <p><strong>Фото:</strong>
-        <img v-if="profile.photo" :src="profile.photo" alt="Фото пользователя" />
-        <span v-else>Фото недоступно</span>
-      </p>
-      <p><strong>Email:</strong> {{ profile.email }}</p>
-      <button @click="openModal" class="btn">Сменить пароль</button>
-    </div>
+  <h1>Профиль</h1>
+  <v-row justify="center">
+    <v-col
+      cols="4">
+    <v-card
+    >
+      <v-card-text class="mx-auto text-center">
+        <v-avatar
+            color="brown"
+            size="100"
+        >
+          <v-icon>mdi-account</v-icon>
+        </v-avatar>
+      </v-card-text>
+    </v-card>
+    </v-col>
+    <v-col
+        cols="8"
+    >
 
-    <!-- Модальное окно -->
-    <div v-if="isModalOpen" class="modal-overlay" @click.self="closeModal">
-      <div class="modal">
-        <h2>Смена пароля</h2>
-        <form @submit.prevent="changePassword">
-          <div class="form-group">
-            <label for="oldPassword">Старый пароль:</label>
-            <input type="password" v-model="oldPassword" id="oldPassword" required />
-          </div>
-          <div class="form-group">
-            <label for="newPassword">Новый пароль:</label>
-            <input type="password" v-model="newPassword" id="newPassword" required />
-          </div>
-          <div class="modal-actions">
-            <button type="submit" class="btn">Сменить пароль</button>
-            <button type="button" @click="closeModal" class="btn cancel">Закрыть</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

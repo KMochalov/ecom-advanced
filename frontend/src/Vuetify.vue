@@ -12,22 +12,68 @@
       >Вход
       </v-btn>
       <v-btn
-          v-else
-          @click="logout"
-      >Выход
-      </v-btn>
-      <v-btn
-        v-if="!this.isAuthenticated"
-        to="/registration"
+          v-if="!this.isAuthenticated"
+          to="/registration"
       >
         Регистрация
       </v-btn>
-      <v-btn
+      <v-menu
           v-if="this.isAuthenticated"
-          to="/profile"
+          min-width="200px"
+          rounded
       >
-        Личный кабинет
-      </v-btn>
+        <template v-slot:activator="{ props }">
+          <v-btn
+              icon
+              v-bind="props"
+          >
+            <v-avatar
+                color="brown"
+                size="large"
+            >
+              <v-icon>mdi-account</v-icon>
+            </v-avatar>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-text>
+            <div class="mx-auto text-center">
+              <h3>Полное имя</h3>
+              <p class="text-caption mt-1">
+                test@mail.ru
+              </p>
+              <v-divider class="my-3"></v-divider>
+
+              <v-list class="text-left">
+                <v-list-item
+                    class="pl-0"
+                    color="primary"
+                    rounded="xl"
+                >
+                  <v-btn
+                      variant="text"
+                      prepend-icon="mdi-account"
+                      to="/profile"
+                  >
+                    Личный кабинет
+                  </v-btn>
+                </v-list-item>
+                <v-list-item
+                    class="pl-0"
+                    color="primary"
+                    rounded="xl">
+                  <v-btn
+                      variant="text"
+                      prepend-icon="mdi-logout"
+                      @click="logout"
+                  >Выход
+                  </v-btn>
+                </v-list-item>
+              </v-list>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-menu>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -46,6 +92,12 @@ export default {
   data() {
     return {
       isAuthenticated: !!localStorage.getItem('authToken'),
+      items: [
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me 2' },
+      ],
     };
   },
   methods: {
