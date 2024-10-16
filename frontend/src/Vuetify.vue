@@ -35,7 +35,7 @@
             </v-avatar>
           </v-btn>
         </template>
-        <v-card>
+        <v-card class="rounded-md">
           <v-card-text>
             <div class="mx-auto text-center">
               <h3>Полное имя</h3>
@@ -76,7 +76,9 @@
       </v-menu>
     </v-app-bar>
     <v-main>
-      <v-container>
+      <v-container
+          class="page-wrapper mt-5 pt-1"
+      >
         <router-view @authChanged="updateAuthStatus"></router-view>
       </v-container>
     </v-main>
@@ -123,3 +125,15 @@ export default {
   },
 };
 </script>
+
+<style>
+.page-wrapper {
+  min-height: calc(100vh - 100px);
+  padding: 15px;
+  border-radius: 12px;
+  background: #eef2f6;
+}
+.rounded-md {
+  border-radius: 12px !important;
+}
+</style>

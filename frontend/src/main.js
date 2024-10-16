@@ -11,6 +11,7 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import Vuetify from "./Vuetify.vue";
+import VueTablerIcons from 'vue-tabler-icons';
 
 axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
 //axios.defaults.headers.common['Bearer'] = 'token'
@@ -41,5 +42,6 @@ app.use(store);
 app.use(router);
 app.use(toast,options);
 app.use(vuetify);
+app.use(VueTablerIcons);
 app.config.globalProperties.$http = axios; // Установка axios как глобального свойства
 app.mount('#app')

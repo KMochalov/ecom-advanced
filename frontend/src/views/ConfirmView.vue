@@ -14,6 +14,7 @@ import { useToast } from 'vue-toastification';
 
 export default {
   name: 'ConfirmView',
+  emits: ['authChanged'],
   setup(_, { emit }) {
     const toast = useToast();
     const router = useRouter();

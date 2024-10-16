@@ -1,24 +1,62 @@
 <template>
-  <h1>Профиль</h1>
-  <v-row justify="center">
+  <breadcrumbs
+    title="Профиль"
+  ></breadcrumbs>
+  <v-row justify="center" v-if="profile">
     <v-col
       cols="4">
     <v-card
+        class="elevation-0 rounded-md"
     >
       <v-card-text class="mx-auto text-center">
         <v-avatar
             color="brown"
-            size="100"
+            size="200"
         >
           <v-icon>mdi-account</v-icon>
         </v-avatar>
+        <v-divider class="mt-5 mb-5"></v-divider>
+        <span class="mb-5 text-disabled"> загрузить/сменить аватар</span>
+        <v-btn
+          class="mt-5"
+          color="info"
+          @click="console.log('тут будет загрузка')"
+        >
+          загрузить аватар
+        </v-btn>
       </v-card-text>
     </v-card>
     </v-col>
     <v-col
         cols="8"
     >
-
+      <v-card class="elevation-0 rounded-md" >
+        <v-card-text>
+          <v-list >
+            <v-list-item>
+              <strong>Email:</strong> {{ profile.email }}
+            </v-list-item>
+            <v-list-item>
+              <strong>ФИО:</strong> Костя Мочалов
+            </v-list-item>
+          </v-list>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-btn
+              color="info"
+              @click="console.log('change password')"
+            >
+              Именить пароль
+            </v-btn>
+            <v-btn
+                color="info"
+                @click="console.log('change email')"
+            >
+              Именить почту
+            </v-btn>
+          </v-card-actions>
+        </v-card-text>
+      </v-card>
     </v-col>
   </v-row>
 </template>
@@ -26,32 +64,31 @@
 <script>
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
 
 export default {
+  components: {Breadcrumbs},
+  emits: ['authChanged'],
   data() {
     return {
       profile: null,
-      oldPassword: '',
-      newPassword: '',
       isModalOpen: false,
+      oldPassword: null,
+      newPassword: null
     };
   },
-  setup() {
-    const toast = useToast();
-    return { toast };
-  },
   async created() {
-    try {
       const token = localStorage.getItem('authToken');
-      const response = await axios.get('/api/v1/profile', {
+      await axios.get('/api/v1/profile', {
         headers: {
           Authorization: `Bearer ${token}`
         }
+      }).then(response => {
+        this.profile = response.data;
+        console.log( this.profile)
+      }).catch(error => {
+        console.error('Ошибка при получении профиля:', error);
       });
-      this.profile = response.data;
-    } catch (error) {
-      console.error('Ошибка при получении профиля:', error);
-    }
   },
   methods: {
     openModal() {
@@ -63,6 +100,7 @@ export default {
       this.newPassword = '';
     },
     async changePassword() {
+      const toast = useToast();
       try {
         const token = localStorage.getItem('authToken');
         const response = await axios.post('/api/v1/auth/change-password', {
@@ -74,79 +112,17 @@ export default {
             Authorization: `Bearer ${token}`
           }
         });
-        this.toast.success(response.data.message || 'Пароль успешно изменен!');
+        toast.success(response.data.message || 'Пароль успешно изменен!');
         this.closeModal();
       } catch (error) {
         console.error('Ошибка при смене пароля:', error);
-        this.toast.error(error.response.data.detail);
+        toast.error(error.response.data.detail);
       }
     }
-  }
+  },
 };
 </script>
 
 <style scoped>
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
 
-.modal {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  width: 400px;
-  max-width: 90%; /* Ограничение ширины для мобильных устройств */
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input {
-  padding: 10px;
-  width: calc(100% - 20px); /* Учитываем отступы */
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-}
-
-.btn {
-  padding: 10px 15px;
-  background-color: #42b983;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background-color: #36a76e;
-}
-
-.cancel {
-  background-color: #e74c3c;
-}
-
-.cancel:hover {
-  background-color: #c0392b;
-}
 </style>
