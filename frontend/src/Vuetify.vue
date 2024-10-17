@@ -128,10 +128,7 @@ export default {
 
 <style>
 .page-wrapper {
-  min-height: calc(100vh - 100px);
-  padding: 15px;
-  border-radius: 12px;
-  background: #eef2f6;
+
 }
 .rounded-md {
   border-radius: 12px !important;

@@ -36,8 +36,6 @@
 
 <script>
 
-import { ChevronRightIcon } from 'vue-tabler-icons';
-
 export default {
   props: ['title'],
   methods: {

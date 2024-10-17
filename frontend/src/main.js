@@ -34,6 +34,13 @@ const vuetify = createVuetify({
     theme: {
         defaultTheme: 'light',
     },
+    defaults: {
+        VCard: {
+            elevation: 2,
+            rounded: 'md'
+            // VBtn: { variant: 'outlined' },
+        },
+    },
 })
 
 //const app = createApp(App);

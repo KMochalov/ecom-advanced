@@ -6,7 +6,7 @@
     <v-col
       cols="4">
     <v-card
-        class="elevation-0 rounded-md"
+        class="rounded-md"
     >
       <v-card-text class="mx-auto text-center">
         <v-avatar
@@ -30,7 +30,7 @@
     <v-col
         cols="8"
     >
-      <v-card class="elevation-0 rounded-md" >
+      <v-card class="rounded-md">
         <v-card-text>
           <v-list >
             <v-list-item>
@@ -43,11 +43,21 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-btn
-              color="info"
-              @click="console.log('change password')"
+                color="info"
+                @click="changePasswordDialog = true"
+            >Изменить пароль</v-btn>
+            <v-dialog
+                v-model="changePasswordDialog"
+                max-width="500"
             >
-              Именить пароль
-            </v-btn>
+              <template v-slot:default="{ isActive }">
+                <ChangePassword
+                    :profile="profile"
+                    @closeChangePasswordDialog="changePasswordDialog = false"
+                >
+                </ChangePassword>
+              </template>
+            </v-dialog>
             <v-btn
                 color="info"
                 @click="console.log('change email')"
@@ -64,17 +74,22 @@
 <script>
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
-import Breadcrumbs from "@/components/Breadcrumbs.vue";
+import Breadcrumbs from "@/components/AppBreadcrumbs.vue";
+import ChangePassword from "@/components/AppChangePassword.vue"
 
 export default {
-  components: {Breadcrumbs},
+  components: {
+    Breadcrumbs,
+    ChangePassword
+  },
   emits: ['authChanged'],
   data() {
     return {
       profile: null,
       isModalOpen: false,
       oldPassword: null,
-      newPassword: null
+      newPassword: null,
+      changePasswordDialog: false
     };
   },
   async created() {
@@ -85,7 +100,6 @@ export default {
         }
       }).then(response => {
         this.profile = response.data;
-        console.log( this.profile)
       }).catch(error => {
         console.error('Ошибка при получении профиля:', error);
       });
