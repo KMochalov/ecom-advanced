@@ -42,28 +42,12 @@
           </v-list>
           <v-divider></v-divider>
           <v-card-actions>
-            <v-btn
-                color="info"
-                @click="changePasswordDialog = true"
-            >Изменить пароль</v-btn>
-            <v-dialog
-                v-model="changePasswordDialog"
-                max-width="500"
-            >
-              <template v-slot:default="{ isActive }">
-                <ChangePassword
-                    :profile="profile"
-                    @closeChangePasswordDialog="changePasswordDialog = false"
-                >
-                </ChangePassword>
-              </template>
-            </v-dialog>
-            <v-btn
-                color="info"
-                @click="console.log('change email')"
-            >
-              Именить почту
-            </v-btn>
+            <ChangePassword
+                :profile="profile"
+            ></ChangePassword>
+            <ChangeEmail
+                :profile="profile"
+            ></ChangeEmail>
           </v-card-actions>
         </v-card-text>
       </v-card>
@@ -76,11 +60,13 @@ import axios from 'axios';
 import { useToast } from 'vue-toastification';
 import Breadcrumbs from "@/components/AppBreadcrumbs.vue";
 import ChangePassword from "@/components/AppChangePassword.vue"
+import ChangeEmail from "@/components/AppChangeEmail.vue"
 
 export default {
   components: {
     Breadcrumbs,
-    ChangePassword
+    ChangePassword,
+    ChangeEmail
   },
   emits: ['authChanged'],
   data() {

@@ -10,7 +10,7 @@ class Command
 {
     public function __construct(
         #[Assert\NotBlank]
-        #[Assert\Ulid]
+        #[Assert\Uuid]
         public string $userId,
         #[Assert\NotBlank]
         #[Assert\Email]

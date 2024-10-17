@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Auth\Command\ChangeEmail\Request;
 
+use App\Auth\Services\ChangeEmailRequestSender;
 use App\Entity\Email;
 use App\Auth\Entity\User\User;
 use App\Auth\Repository\UserRepositoryInterface;
