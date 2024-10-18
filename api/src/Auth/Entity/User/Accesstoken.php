@@ -5,6 +5,7 @@ namespace App\Auth\Entity\User;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Webmozart\Assert\Assert;
+use App\Entity\Id;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'access_tokens')]

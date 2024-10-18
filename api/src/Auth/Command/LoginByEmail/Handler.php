@@ -3,7 +3,7 @@
 namespace App\Auth\Command\LoginByEmail;
 
 use App\Auth\Entity\User\Accesstoken;
-use App\Auth\Entity\User\Id;
+use App\Entity\Id;
 use App\Auth\Repository\AccesstokenRepository;
 use App\Auth\Repository\UserRepository;
 use App\Security\UserIdentity;

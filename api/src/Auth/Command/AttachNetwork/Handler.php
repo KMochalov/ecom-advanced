@@ -6,7 +6,7 @@ namespace App\Auth\Command\AttachNetwork;
 
 use App\Auth\Command\AttachNetwork\Command;
 use App\Entity\Email;
-use App\Auth\Entity\User\Id;
+use App\Entity\Id;
 use App\Auth\Entity\User\NetworkIdentity;
 use App\Auth\Entity\User\User;
 use App\Auth\Repository\UserRepositoryInterface;

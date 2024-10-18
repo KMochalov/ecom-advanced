@@ -4,7 +4,7 @@ namespace App\Auth\Tests\Unit\Entity\User;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use App\Auth\Entity\User\Id;
+use App\Entity\Id;
 use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 

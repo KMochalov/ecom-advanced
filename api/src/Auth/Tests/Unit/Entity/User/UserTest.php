@@ -3,7 +3,7 @@
 namespace App\Auth\Tests\Unit\Entity\User;
 
 use App\Entity\Email;
-use App\Auth\Entity\User\Id;
+use App\Entity\Id;
 use App\Auth\Services\Hasher;
 use App\Auth\Services\Tokenizer;
 use PHPUnit\Framework\TestCase;

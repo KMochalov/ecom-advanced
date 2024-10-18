@@ -3,7 +3,7 @@
 namespace App\Auth\Repository;
 
 use App\Entity\Email;
-use App\Auth\Entity\User\Id;
+use App\Entity\Id;
 use App\Auth\Entity\User\NetworkIdentity;
 use App\Auth\Entity\User\User;
 use DomainException;

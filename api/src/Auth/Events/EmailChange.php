@@ -6,7 +6,7 @@ use App\Entity\Id;
 use App\Entity\Email;
 use Symfony\Contracts\EventDispatcher\Event;
 
-class NewUserEvent extends Event
+class EmailChange extends Event
 {
     public function __construct(private Id $userId, private Email $email)
     {

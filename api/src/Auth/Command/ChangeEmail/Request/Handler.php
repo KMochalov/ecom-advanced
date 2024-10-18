@@ -13,7 +13,7 @@ use App\Auth\Services\SenderInterface;
 use App\Auth\Services\TokenizerInterface;
 use DateTimeImmutable;
 use DomainException;
-use App\Auth\Entity\User\Id;
+use App\Entity\Id;
 use App\Utils\Flusher;
 
 class Handler
@@ -35,9 +35,7 @@ class Handler
         $token = $this->tokenizer->tokenize($date = new DateTimeImmutable());
 
         $user->changeEmailRequest($newEmail, $date, $token);
-
-        $this->repository->add($user);
         $this->flusher->flush();
-        $this->sender->send($newEmail, $token);
+        $this->sender->send($user->getEmail(), $token);
     }
 }

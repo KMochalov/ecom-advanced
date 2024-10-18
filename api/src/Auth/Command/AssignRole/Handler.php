@@ -6,7 +6,7 @@ namespace App\Auth\Command\AssignRole;
 
 use App\Auth\Entity\User\Role;
 use App\Auth\Repository\UserRepositoryInterface;
-use App\Auth\Entity\User\Id;
+use App\Entity\Id;
 use App\Utils\Flusher;
 
 class Handler

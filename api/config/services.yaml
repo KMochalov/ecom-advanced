@@ -54,4 +54,6 @@ services:
             $passwordHash: ?string
     App\Cabinet\EventListeners\NewUserListener:
         tags: [ kernel.event_listener ]
+    App\Cabinet\EventListeners\EmailChangeListener:
+        tags: [ kernel.event_listener ]
 

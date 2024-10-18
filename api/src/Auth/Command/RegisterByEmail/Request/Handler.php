@@ -13,7 +13,7 @@ use App\Auth\Services\SenderInterface;
 use App\Auth\Services\TokenizerInterface;
 use DateTimeImmutable;
 use DomainException;
-use App\Auth\Entity\User\Id;
+use App\Entity\Id;
 use App\Utils\Flusher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

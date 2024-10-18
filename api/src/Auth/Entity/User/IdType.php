@@ -7,7 +7,7 @@ namespace App\Auth\Entity\User;
 use Doctrine\DBAL\Types\GuidType;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use App\Auth\Entity\User\Id;
+use App\Entity\Id;
 
 class IdType extends GuidType
 {

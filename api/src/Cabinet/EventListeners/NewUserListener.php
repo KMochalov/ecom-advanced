@@ -10,8 +10,8 @@ class NewUserListener
 {
     public function __construct(private Handler $handler)
     {
-
     }
+
     public function __invoke(NewUserEvent $event): void
     {
         $command = new Command($event->getUserId()->getValue(), $event->getUserEmail()->getValue());

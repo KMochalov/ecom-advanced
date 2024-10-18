@@ -2,16 +2,20 @@
 
 namespace App\Auth\Command\ChangeEmail\Confirm;
 
+use App\Auth\Events\EmailChange;
 use App\Auth\Repository\UserRepositoryInterface;
 use App\Utils\Flusher;
 use DateTimeImmutable;
 use DomainException;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class Handler
 {
     public function __construct(
         private readonly Flusher $flusher,
-        private readonly UserRepositoryInterface $repository)
+        private readonly UserRepositoryInterface $repository,
+        private readonly EventDispatcherInterface $eventDispatcher
+    )
     {
     }
 
@@ -24,7 +28,7 @@ class Handler
         }
 
         $user->confirmChangeEmail($token, new DateTimeImmutable());
-
         $this->flusher->flush();
+        $this->eventDispatcher->dispatch(new EmailChange($user->getId(), $user->getEmail()));
     }
 }

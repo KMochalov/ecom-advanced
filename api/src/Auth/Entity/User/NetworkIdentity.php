@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Auth\Entity\User;
 
 use Webmozart\Assert\Assert;
-use App\Auth\Entity\User\Id;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Id;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user_networks')]

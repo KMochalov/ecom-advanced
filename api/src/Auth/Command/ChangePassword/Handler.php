@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Auth\Command\ChangePassword;
 
-use App\Auth\Entity\User\Id;
+use App\Entity\Id;
 use App\Auth\Repository\UserRepositoryInterface;
 use App\Auth\Services\HasherInterface;
 use App\Utils\Flusher;

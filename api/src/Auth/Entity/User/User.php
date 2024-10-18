@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DomainException;
 use App\Entity\Email;
+use App\Entity\Id;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user_users')]

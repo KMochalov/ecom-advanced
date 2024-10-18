@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Auth\Repository;
 
 use App\Entity\Email;
-use App\Auth\Entity\User\Id;
+use App\Entity\Id;
 use App\Auth\Entity\User\NetworkIdentity;
 use App\Auth\Entity\User\User;
 use Doctrine\ORM\EntityManagerInterface;
