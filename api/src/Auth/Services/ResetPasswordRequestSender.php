@@ -20,10 +20,13 @@ class ResetPasswordRequestSender implements SenderInterface
 
     public function send(UserEmail $userEmail, Token $token): void
     {
-        $body ='Чтобы восстановить пароль перейдите по ссылке: '
-            . $this->frontendUrl
+        $link = $this->frontendUrl
             . '/reset-password?'
             . http_build_query(['token' => $token->getValue()]);
+
+        $body ='Чтобы восстановить пароль перейдите по ссылке: '
+           . "<a href='{$link}'>{$link}</a>";
+
 
         $email = new SymfonyEmail();
         $email->from($this->senderEmail)

@@ -20,10 +20,13 @@ class Sender implements SenderInterface
 
     public function send(UserEmail $userEmail, Token $token): void
     {
-        $body ='Подтвердите регистрацию на сайте '
-            . $this->frontendUrl
+        $link = $this->frontendUrl
             . '/signup-confirm?'
             . http_build_query(['token' => $token->getValue()]);
+
+        $body ='Подтвердите регистрацию на сайте '
+            . "<a href='{$link}'>{$link}</a>";
+
 
         $email = new SymfonyEmail();
         $email->from($this->senderEmail)

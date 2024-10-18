@@ -7,7 +7,7 @@
           v-model="changePasswordDialog"
           max-width="500"
       >
-        <template v-slot:default="{ isActive }">
+        <template v-slot:default>
           <v-form ref="form">
             <v-card
                 width="550" class="mx-auto mt-5"
