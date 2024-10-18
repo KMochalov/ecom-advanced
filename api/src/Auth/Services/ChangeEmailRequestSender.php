@@ -19,7 +19,7 @@ class ChangeEmailRequestSender implements SenderInterface
     public function send(UserEmail $userEmail, Token $token): void
     {
         $link = $this->frontendUrl
-                . '/reset-password?'
+                . '/confirm-change-email?'
                 . http_build_query(['token' => $token->getValue()]);
 
         $body ='Вам направлена ссылка для смены Email. НЕ ПЕРЕХОДИТЬ ЕСЛИ ЭТО НЕ ВЫ '

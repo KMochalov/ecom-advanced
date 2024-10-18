@@ -43,6 +43,10 @@ const routes = [
     name: 'ResetPassword',
     component: () => import('../views/ResetPasswordView.vue')
   },
+  {
+    path: '/confirm-change-email',
+    name: 'confirm-change-email',
+    component: () => import('../views/ConfirmEmailChangeView.vue')},
 ]
 
 const router = createRouter({
