@@ -1,8 +1,9 @@
 <template>
+
   <v-app>
     <v-app-bar :elevation="2">
       <template v-slot:prepend>
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click.stop="sideMenuRailed = !sideMenuRailed"></v-app-bar-nav-icon>
       </template>
 
       <v-app-bar-title>Название страницы?</v-app-bar-title>
@@ -76,6 +77,11 @@
       </v-menu>
     </v-app-bar>
     <v-main>
+      <side-bar-menu
+        :rail="sideMenuRailed"
+        @railed="sideMenuRailed = !sideMenuRailed"
+      >
+      </side-bar-menu>
       <v-container
           class="page-wrapper mt-5 pt-1"
       >
@@ -88,9 +94,13 @@
 <script>
 
 import axios from "axios";
+import SideBarMenu from "@/components/AppSideBarMenu.vue";
 
 export default {
   name: 'App',
+  components: {
+    SideBarMenu,
+  },
   data() {
     return {
       isAuthenticated: !!localStorage.getItem('authToken'),
@@ -100,6 +110,7 @@ export default {
         { title: 'Click Me' },
         { title: 'Click Me 2' },
       ],
+      sideMenuRailed: true
     };
   },
   methods: {
