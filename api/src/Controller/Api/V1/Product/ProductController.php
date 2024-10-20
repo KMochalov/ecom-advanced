@@ -21,13 +21,15 @@ class ProductController extends AbstractController
     #[Route('/product', name: 'product', methods: ['POST'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $category = new Category(Id::generate());
+        $parent = new Category(Id::generate(), 'категория', null);
+        $category = new Category(Id::generate(), 'категория дочерняя', $parent);
 
-        $product = new Product(Id::generate());
+        $product = new Product(Id::generate(), 'товар');
 
         // relates this product to the category
         $product->setCategory($category);
 
+        $entityManager->persist($parent);
         $entityManager->persist($category);
         $entityManager->persist($product);
         $entityManager->flush();
@@ -35,6 +37,7 @@ class ProductController extends AbstractController
         return new Response(
             'Saved new product with id: '.$product->getId()
             .' and new category with id: '.$category->getId()
+            .' and new category with id: '.$parent->getChildren()->first()->getId()
         );
     }
 
@@ -42,6 +45,11 @@ class ProductController extends AbstractController
     public function get(EntityManagerInterface $entityManager): Response
     {
         $products = $entityManager->getRepository(Product::class)->findAll();
+        $categories = $entityManager->getRepository(Category::class)->findAll();
+
+        foreach ($categories as $category) {
+            var_dump($category);
+        }
 
         return $this->json([
             $products
